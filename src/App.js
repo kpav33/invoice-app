@@ -1,11 +1,16 @@
-import "./App.css";
+import { GlobalStyles } from "./GlobalStyle.style";
 
-function App() {
+import Header from "./components/Header";
+import MainContent from "./components/MainContent";
+
+export default function App() {
   return (
     <div className="App">
-      <h1>Testing Netlify</h1>
+      <GlobalStyles />
+      <Header />
+      <MainContent />
     </div>
   );
 }
 
-export default App;
+//export default App;
