@@ -2,6 +2,25 @@ import React from "react";
 import styled from "styled-components";
 
 export default function Invoice({ id, due, name, total, status }) {
+  let totalFormatted = new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(total);
+
+  let statusCapitalized = status[0].toUpperCase() + status.slice(1);
+
+  let statusBackgroundColor, statusColor;
+  if (status === "pending") {
+    statusBackgroundColor = "rgba(255, 143, 0, 0.06)";
+    statusColor = "#FF8F00";
+  } else if (status === "draft") {
+    statusBackgroundColor = "rgba(55, 59, 83, 0.06)";
+    statusColor = "#373B53";
+  } else {
+    statusBackgroundColor = "rgba(51, 214, 159, 0.06)";
+    statusColor = "#33d69f";
+  }
+
   return (
     <StyledInvoiceDiv>
       <StyledIdPara>
@@ -12,10 +31,13 @@ export default function Invoice({ id, due, name, total, status }) {
         <span>Due</span> {due}
       </StyledDatePara>
       <StyledNamePara>{name}</StyledNamePara>
-      <StyledValuePara>€{total}</StyledValuePara>
-      <StyledStatusDiv>
+      <StyledValuePara>{totalFormatted}</StyledValuePara>
+      <StyledStatusDiv
+        backgroundColor={statusBackgroundColor}
+        color={statusColor}
+      >
         <span className="dot"></span>
-        {status}
+        {statusCapitalized}
       </StyledStatusDiv>
     </StyledInvoiceDiv>
   );
@@ -61,6 +83,7 @@ const StyledDatePara = styled.p`
 
 const StyledNamePara = styled.p`
   color: #858bb2;
+  text-align: right;
   grid-area: name;
   //align-self: flex-end;
 `;
@@ -75,12 +98,12 @@ const StyledValuePara = styled.p`
 `;
 
 const StyledStatusDiv = styled.div`
-  color: #33d69f;
+  color: ${(props) => props.color};
   font-weight: bold;
-  background: rgba(51, 214, 159, 0.06);
+  background: ${(props) => props.backgroundColor};
   border-radius: 6px;
   width: 104px;
-  padding: 13px 30px;
+  padding: 13px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,7 +112,7 @@ const StyledStatusDiv = styled.div`
   .dot {
     height: 8px;
     width: 8px;
-    background-color: #33d69f;
+    background-color: ${(props) => props.color};
     border-radius: 50%;
     display: inline-block;
     margin-right: 8px;
