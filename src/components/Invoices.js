@@ -17,6 +17,7 @@ export default function Invoices() {
       name={invoice.clientName}
       total={invoice.total}
       status={invoice.status}
+      invoiceObj={invoice}
     />
   ));
 

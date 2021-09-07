@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as Moon } from "../assets/icon-moon.svg";
@@ -8,9 +9,11 @@ import userImg from "../assets/image-avatar.jpg";
 export default function Header() {
   return (
     <StyledHeader>
-      <LogoDiv>
-        <Logo />
-      </LogoDiv>
+      <Link to="/">
+        <LogoDiv>
+          <Logo />
+        </LogoDiv>
+      </Link>
       <SwitcherUserDiv>
         <Moon />
         <div>

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export default function Invoice({ id, due, name, total, status }) {
+export default function Invoice({ id, due, name, total, status, invoiceObj }) {
   let totalFormatted = new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -21,27 +22,43 @@ export default function Invoice({ id, due, name, total, status }) {
     statusColor = "#33d69f";
   }
 
+  //let date = new Date(due);
+  //console.log(date.toUTCString());
+  let subpageId = id;
+  //console.log(invoiceObj);
+
   return (
-    <StyledInvoiceDiv>
-      <StyledIdPara>
-        <span>#</span>
-        {id}
-      </StyledIdPara>
-      <StyledDatePara>
-        <span>Due</span> {due}
-      </StyledDatePara>
-      <StyledNamePara>{name}</StyledNamePara>
-      <StyledValuePara>{totalFormatted}</StyledValuePara>
-      <StyledStatusDiv
-        backgroundColor={statusBackgroundColor}
-        color={statusColor}
-      >
-        <span className="dot"></span>
-        {statusCapitalized}
-      </StyledStatusDiv>
-    </StyledInvoiceDiv>
+    <InvoiceLink
+      to={{
+        pathname: `/invoice/${subpageId}`,
+        state: invoiceObj,
+      }}
+    >
+      <StyledInvoiceDiv>
+        <StyledIdPara>
+          <span>#</span>
+          {id}
+        </StyledIdPara>
+        <StyledDatePara>
+          <span>Due</span> {due}
+        </StyledDatePara>
+        <StyledNamePara>{name}</StyledNamePara>
+        <StyledValuePara>{totalFormatted}</StyledValuePara>
+        <StyledStatusDiv
+          backgroundColor={statusBackgroundColor}
+          color={statusColor}
+        >
+          <span className="dot"></span>
+          {statusCapitalized}
+        </StyledStatusDiv>
+      </StyledInvoiceDiv>
+    </InvoiceLink>
   );
 }
+
+const InvoiceLink = styled(Link)`
+  text-decoration: none;
+`;
 
 const StyledInvoiceDiv = styled.div`
   background: #ffffff;
