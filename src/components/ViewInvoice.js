@@ -9,6 +9,10 @@ export default function ViewInvoice() {
 
   let statusCapitalized = state.status[0].toUpperCase() + state.status.slice(1);
 
+  let uniqueId = function () {
+    return "_" + Math.random().toString(36).substr(2, 9);
+  };
+
   let statusBackgroundColor, statusColor;
   if (state.status === "pending") {
     statusBackgroundColor = "rgba(255, 143, 0, 0.06)";
@@ -22,7 +26,7 @@ export default function ViewInvoice() {
   }
 
   let receiptItems = state.items.map((item) => (
-    <StyledReceiptItemsDiv>
+    <StyledReceiptItemsDiv key={uniqueId()}>
       <div>
         <p className="black">{item.name}</p>
         <p>{`${item.quantity} x € ${item.price}`}</p>
@@ -33,75 +37,90 @@ export default function ViewInvoice() {
   console.log(receiptItems);
 
   return (
-    <StyledViewInvoiceDiv>
-      <StyledBackLink to="/">
-        <ArrowLeft /> Go back
-      </StyledBackLink>
-      <StyledStatusDiv>
-        <p>Status</p>
-        <StyledStatusStateDiv
-          backgroundColor={statusBackgroundColor}
-          color={statusColor}
-        >
-          <span className="dot"></span>
-          {statusCapitalized}
-        </StyledStatusStateDiv>
-      </StyledStatusDiv>
-      <StyledInvoiceInfoDiv>
-        <StyledDivId>
-          <p>
-            <span>#</span>
-            {state.id}
-          </p>
-          <p>{state.description}</p>
-        </StyledDivId>
-        <StyledSenderAddressDiv>
-          <p>{state.senderAddress.street}</p>
-          <p>{state.senderAddress.city}</p>
-          <p>{state.senderAddress.postCode}</p>
-          <p>{state.senderAddress.country}</p>
-        </StyledSenderAddressDiv>
-        <StyledDateClientDiv>
-          <StyledDateDiv>
-            <p>Invoice Date</p>
-            <p className="bold">{state.createdAt}</p>
-            <p>Payment Due</p>
-            <p className="bold">{state.paymentDue}</p>
-          </StyledDateDiv>
-          <StyledBillToDiv>
-            <p>Bill To</p>
-            <p className="bold">{state.clientName}</p>
-            <p>{state.clientAddress.street}</p>
-            <p>{state.clientAddress.city}</p>
-            <p>{state.clientAddress.postCode}</p>
-            <p>{state.clientAddress.country}</p>
-          </StyledBillToDiv>
-        </StyledDateClientDiv>
-        <StyledSentToDiv>
-          <p>Sent to</p>
-          <p>{state.clientEmail}</p>
-        </StyledSentToDiv>
-        <StyledReceiptDiv>
-          <StyledRecepitItemsContainerDiv>
-            {receiptItems}
-          </StyledRecepitItemsContainerDiv>
-          <StyledGrandTotalContainer>
-            <p>Grand Total</p>
-            <p>{`€ ${state.total}`}</p>
-          </StyledGrandTotalContainer>
-        </StyledReceiptDiv>
-      </StyledInvoiceInfoDiv>
-    </StyledViewInvoiceDiv>
+    <>
+      <StyledViewInvoiceDiv>
+        <StyledBackLink to="/">
+          <ArrowLeft /> Go back
+        </StyledBackLink>
+        <StyledStatusDiv>
+          <p>Status</p>
+          <StyledStatusStateDiv
+            backgroundColor={statusBackgroundColor}
+            color={statusColor}
+          >
+            <span className="dot"></span>
+            {statusCapitalized}
+          </StyledStatusStateDiv>
+        </StyledStatusDiv>
+        <StyledInvoiceInfoDiv>
+          <StyledDivId>
+            <p>
+              <span>#</span>
+              {state.id}
+            </p>
+            <p>{state.description}</p>
+          </StyledDivId>
+          <StyledSenderAddressDiv>
+            <p>{state.senderAddress.street}</p>
+            <p>{state.senderAddress.city}</p>
+            <p>{state.senderAddress.postCode}</p>
+            <p>{state.senderAddress.country}</p>
+          </StyledSenderAddressDiv>
+          <StyledDateClientDiv>
+            <StyledDateDiv>
+              <p>Invoice Date</p>
+              <p className="bold">{state.createdAt}</p>
+              <p>Payment Due</p>
+              <p className="bold">{state.paymentDue}</p>
+            </StyledDateDiv>
+            <StyledBillToDiv>
+              <p>Bill To</p>
+              <p className="bold">{state.clientName}</p>
+              <p>{state.clientAddress.street}</p>
+              <p>{state.clientAddress.city}</p>
+              <p>{state.clientAddress.postCode}</p>
+              <p>{state.clientAddress.country}</p>
+            </StyledBillToDiv>
+          </StyledDateClientDiv>
+          <StyledSentToDiv>
+            <p>Sent to</p>
+            <p>{state.clientEmail}</p>
+          </StyledSentToDiv>
+          <StyledReceiptDiv>
+            <StyledRecepitItemsContainerDiv>
+              {receiptItems}
+            </StyledRecepitItemsContainerDiv>
+            <StyledGrandTotalContainer>
+              <p>Grand Total</p>
+              <p>{`€ ${state.total}`}</p>
+            </StyledGrandTotalContainer>
+          </StyledReceiptDiv>
+        </StyledInvoiceInfoDiv>
+      </StyledViewInvoiceDiv>
+      <StyledManageInvoiceBar>
+        <StyledMangeInvoiceButton backgroundColor="#F9FAFE" color="#7E88C3">
+          Edit
+        </StyledMangeInvoiceButton>
+        <StyledMangeInvoiceButton backgroundColor="#EC5757" color="#FFFFFF">
+          Delete
+        </StyledMangeInvoiceButton>
+        <StyledMangeInvoiceButton backgroundColor="#7C5DFA" color="#FFFFFF">
+          Mark as Paid
+        </StyledMangeInvoiceButton>
+      </StyledManageInvoiceBar>
+    </>
   );
 }
 
 const StyledViewInvoiceDiv = styled.div`
-  padding: 32px 24px 0px 24px;
+  padding: 32px 0px 0px 0px;
+  margin: 0px 24px;
 `;
 
 const StyledBackLink = styled(Link)`
   text-decoration: none;
   font-weight: bold;
+  //margin: 0 24px;
 
   &:active,
   :visited,
@@ -125,6 +144,7 @@ const StyledStatusDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
+  //margin: 32px 24px 16px 32px;
 
   & > p {
     color: #858bb2;
@@ -279,5 +299,31 @@ const StyledGrandTotalContainer = styled.div`
     font-size: 20px;
     line-height: 32px;
     letter-spacing: -0.42px;
+  }
+`;
+
+const StyledManageInvoiceBar = styled.div`
+  margin-top: 56px;
+  background: #fff;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledMangeInvoiceButton = styled.button`
+  border: none;
+  background: ${(props) => props.backgroundColor};
+  padding: 17px 24px;
+  font-family: "Spartan", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: ${(props) => props.color};
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  border-radius: 25px;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
