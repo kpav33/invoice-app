@@ -41,7 +41,7 @@ export default function Invoice({
     <InvoiceLink
       to={{
         pathname: `/invoice/${subpageId}`,
-        state: [invoiceObj, allInvoices],
+        state: [invoiceObj],
       }}
     >
       <StyledInvoiceDiv>

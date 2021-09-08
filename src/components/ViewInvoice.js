@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocation, Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 
-export default function ViewInvoice() {
+export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   let { state } = useLocation();
-  let [invoice, allInvoices] = state;
+  let [invoice] = state;
   //console.log(state);
   //console.log(allInvoices);
   //console.log(setAllInvoices);
+
+  /**
+   * function handleDeleteClick(event) {
+    let targetId =
+      event.target.parentNode.childNodes[0].children[0].childNodes[0].id;
+    setStoredTodos((prevState) => {
+      const updatedTodos = prevState.filter((todo) => todo.id !== targetId);
+      return updatedTodos;
+    });
+  }
+   */
+
+  console.log(allInvoices);
+  console.log(invoice.id);
+
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+
+  let currInvoiceId = invoice.id;
+
+  function handleDeleteClick() {
+    setAllInvoices((prevState) => {
+      const updatedInvoices = prevState.filter(
+        (invoice) => invoice.id !== currInvoiceId
+      );
+      return updatedInvoices;
+    });
+  }
 
   let statusCapitalized =
     invoice.status[0].toUpperCase() + invoice.status.slice(1);
@@ -105,13 +132,41 @@ export default function ViewInvoice() {
         <StyledMangeInvoiceButton backgroundColor="#F9FAFE" color="#7E88C3">
           Edit
         </StyledMangeInvoiceButton>
-        <StyledMangeInvoiceButton backgroundColor="#EC5757" color="#FFFFFF">
+        <StyledMangeInvoiceButton
+          backgroundColor="#EC5757"
+          color="#FFFFFF"
+          onClick={() => setShowDeleteMessage(true)}
+        >
           Delete
         </StyledMangeInvoiceButton>
-        <StyledMangeInvoiceButton backgroundColor="#7C5DFA" color="#FFFFFF">
-          Mark as Paid
-        </StyledMangeInvoiceButton>
+        {invoice.status !== "paid" && (
+          <StyledMangeInvoiceButton backgroundColor="#7C5DFA" color="#FFFFFF">
+            Mark as Paid
+          </StyledMangeInvoiceButton>
+        )}
       </StyledManageInvoiceBar>
+      {showDeleteMessage && (
+        <StyledDeleteInvoiceDiv>
+          <h3>Confirm Deletion</h3>
+          <p>
+            Are your sure you want to delete invoice {`#${invoice.id}`}? This
+            action cannot be undone.
+          </p>
+          <div>
+            <button onClick={() => setShowDeleteMessage(false)}>Cancel</button>
+            <Link to="/">
+              <button
+                onClick={() => {
+                  setShowDeleteMessage(false);
+                  handleDeleteClick();
+                }}
+              >
+                Delete
+              </button>
+            </Link>
+          </div>
+        </StyledDeleteInvoiceDiv>
+      )}
     </>
   );
 }
@@ -119,6 +174,7 @@ export default function ViewInvoice() {
 const StyledViewInvoiceDiv = styled.div`
   padding: 32px 0px 0px 0px;
   margin: 0px 24px;
+  position: relative;
 `;
 
 const StyledBackLink = styled(Link)`
@@ -330,4 +386,15 @@ const StyledMangeInvoiceButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const StyledDeleteInvoiceDiv = styled.div`
+  position: absolute;
+  top: 70%;
+  left: 6%;
+  right: 6%;
+  background: #fff;
+  padding: 32px;
+  border-radius: 10px;
+  border: 2px solid black;
 `;
