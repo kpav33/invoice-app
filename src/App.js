@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GlobalStyles } from "./GlobalStyle.style";
 import { Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 import data from "./data.json";
 
 import Header from "./components/Header";
@@ -13,7 +14,7 @@ export default function App() {
   const [allInvoices, setAllInvoices] = useState(data);
 
   return (
-    <div className="App">
+    <StyledAppDiv>
       <GlobalStyles />
       <Header />
       <Switch>
@@ -30,8 +31,13 @@ export default function App() {
           />
         </Route>
       </Switch>
-    </div>
+    </StyledAppDiv>
   );
 }
+
+const StyledAppDiv = styled.div`
+  //background-color: gray;
+  //opacity: 0.5;
+`;
 
 //export default App;

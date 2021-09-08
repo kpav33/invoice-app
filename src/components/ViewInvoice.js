@@ -142,24 +142,24 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
         </StyledInvoiceInfoDiv>
       </StyledViewInvoiceDiv>
       <StyledManageInvoiceBar>
-        <StyledMangeInvoiceButton backgroundColor="#F9FAFE" color="#7E88C3">
+        <StyledManageInvoiceButton backgroundColor="#F9FAFE" color="#7E88C3">
           Edit
-        </StyledMangeInvoiceButton>
-        <StyledMangeInvoiceButton
+        </StyledManageInvoiceButton>
+        <StyledManageInvoiceButton
           backgroundColor="#EC5757"
           color="#FFFFFF"
           onClick={() => setShowDeleteMessage(true)}
         >
           Delete
-        </StyledMangeInvoiceButton>
+        </StyledManageInvoiceButton>
         {invoice.status !== "paid" && (
-          <StyledMangeInvoiceButton
+          <StyledManageInvoiceButton
             backgroundColor="#7C5DFA"
             color="#FFFFFF"
             onClick={handleMarkAsPaidClick}
           >
             Mark as Paid
-          </StyledMangeInvoiceButton>
+          </StyledManageInvoiceButton>
         )}
       </StyledManageInvoiceBar>
       {showDeleteMessage && (
@@ -170,16 +170,24 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
             action cannot be undone.
           </p>
           <div>
-            <button onClick={() => setShowDeleteMessage(false)}>Cancel</button>
+            <StyledManageInvoiceButton
+              backgroundColor="#F9FAFE"
+              color="#7E88C3"
+              onClick={() => setShowDeleteMessage(false)}
+            >
+              Cancel
+            </StyledManageInvoiceButton>
             <Link to="/">
-              <button
+              <StyledManageInvoiceButton
+                backgroundColor="#EC5757"
+                color="#FFFFFF"
                 onClick={() => {
                   setShowDeleteMessage(false);
                   handleDeleteClick();
                 }}
               >
                 Delete
-              </button>
+              </StyledManageInvoiceButton>
             </Link>
           </div>
         </StyledDeleteInvoiceDiv>
@@ -192,6 +200,12 @@ const StyledViewInvoiceDiv = styled.div`
   padding: 32px 0px 0px 0px;
   margin: 0px 24px;
   position: relative;
+  //background: red;
+  //z-index: 9999;
+  //background-color: hsla(0, 0%, 0%);
+  //background-color: gray;
+  //opacity: 0.5;
+  //z-index: 1;
 `;
 
 const StyledBackLink = styled(Link)`
@@ -388,7 +402,7 @@ const StyledManageInvoiceBar = styled.div`
   align-items: center;
 `;
 
-const StyledMangeInvoiceButton = styled.button`
+const StyledManageInvoiceButton = styled.button`
   border: none;
   background: ${(props) => props.backgroundColor};
   padding: 17px 24px;
@@ -407,11 +421,38 @@ const StyledMangeInvoiceButton = styled.button`
 
 const StyledDeleteInvoiceDiv = styled.div`
   position: absolute;
-  top: 70%;
+  top: 60%;
   left: 6%;
   right: 6%;
   background: #fff;
   padding: 32px;
   border-radius: 10px;
   border: 2px solid black;
+  //z-index: 9999;
+  //opacity: 0;
+
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.42px;
+  }
+
+  p {
+    color: var(--date-text-light);
+    //font-size: 12px;
+    line-height: 22px;
+  }
+
+  div {
+    margin-top: 24px;
+    margin-left: 60px;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    grid-gap: 8px;
+  }
+
+  button {
+    width: 90px;
+  }
 `;
