@@ -4,11 +4,11 @@ import styled from "styled-components";
 import ActionBar from "./ActionBar";
 import Invoices from "./Invoices";
 
-export default function MainContent() {
+export default function MainContent({ allInvoices, setAllInvoices }) {
   return (
     <StyledMain>
-      <ActionBar />
-      <Invoices />
+      <ActionBar allInvoices={allInvoices} setAllInvoices={setAllInvoices} />
+      <Invoices allInvoices={allInvoices} setAllInvoices={setAllInvoices} />
     </StyledMain>
   );
 }

@@ -5,19 +5,23 @@ import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 
 export default function ViewInvoice() {
   let { state } = useLocation();
-  console.log(state);
+  let [invoice, allInvoices] = state;
+  //console.log(state);
+  //console.log(allInvoices);
+  //console.log(setAllInvoices);
 
-  let statusCapitalized = state.status[0].toUpperCase() + state.status.slice(1);
+  let statusCapitalized =
+    invoice.status[0].toUpperCase() + invoice.status.slice(1);
 
   let uniqueId = function () {
     return "_" + Math.random().toString(36).substr(2, 9);
   };
 
   let statusBackgroundColor, statusColor;
-  if (state.status === "pending") {
+  if (invoice.status === "pending") {
     statusBackgroundColor = "rgba(255, 143, 0, 0.06)";
     statusColor = "#FF8F00";
-  } else if (state.status === "draft") {
+  } else if (invoice.status === "draft") {
     statusBackgroundColor = "rgba(55, 59, 83, 0.06)";
     statusColor = "#373B53";
   } else {
@@ -25,7 +29,7 @@ export default function ViewInvoice() {
     statusColor = "#33d69f";
   }
 
-  let receiptItems = state.items.map((item) => (
+  let receiptItems = invoice.items.map((item) => (
     <StyledReceiptItemsDiv key={uniqueId()}>
       <div>
         <p className="black">{item.name}</p>
@@ -34,7 +38,7 @@ export default function ViewInvoice() {
       <p className="black">{`€ ${item.total}`}</p>
     </StyledReceiptItemsDiv>
   ));
-  console.log(receiptItems);
+  //console.log(receiptItems);
 
   return (
     <>
@@ -56,35 +60,35 @@ export default function ViewInvoice() {
           <StyledDivId>
             <p>
               <span>#</span>
-              {state.id}
+              {invoice.id}
             </p>
-            <p>{state.description}</p>
+            <p>{invoice.description}</p>
           </StyledDivId>
           <StyledSenderAddressDiv>
-            <p>{state.senderAddress.street}</p>
-            <p>{state.senderAddress.city}</p>
-            <p>{state.senderAddress.postCode}</p>
-            <p>{state.senderAddress.country}</p>
+            <p>{invoice.senderAddress.street}</p>
+            <p>{invoice.senderAddress.city}</p>
+            <p>{invoice.senderAddress.postCode}</p>
+            <p>{invoice.senderAddress.country}</p>
           </StyledSenderAddressDiv>
           <StyledDateClientDiv>
             <StyledDateDiv>
               <p>Invoice Date</p>
-              <p className="bold">{state.createdAt}</p>
+              <p className="bold">{invoice.createdAt}</p>
               <p>Payment Due</p>
-              <p className="bold">{state.paymentDue}</p>
+              <p className="bold">{invoice.paymentDue}</p>
             </StyledDateDiv>
             <StyledBillToDiv>
               <p>Bill To</p>
-              <p className="bold">{state.clientName}</p>
-              <p>{state.clientAddress.street}</p>
-              <p>{state.clientAddress.city}</p>
-              <p>{state.clientAddress.postCode}</p>
-              <p>{state.clientAddress.country}</p>
+              <p className="bold">{invoice.clientName}</p>
+              <p>{invoice.clientAddress.street}</p>
+              <p>{invoice.clientAddress.city}</p>
+              <p>{invoice.clientAddress.postCode}</p>
+              <p>{invoice.clientAddress.country}</p>
             </StyledBillToDiv>
           </StyledDateClientDiv>
           <StyledSentToDiv>
             <p>Sent to</p>
-            <p>{state.clientEmail}</p>
+            <p>{invoice.clientEmail}</p>
           </StyledSentToDiv>
           <StyledReceiptDiv>
             <StyledRecepitItemsContainerDiv>
@@ -92,7 +96,7 @@ export default function ViewInvoice() {
             </StyledRecepitItemsContainerDiv>
             <StyledGrandTotalContainer>
               <p>Grand Total</p>
-              <p>{`€ ${state.total}`}</p>
+              <p>{`€ ${invoice.total}`}</p>
             </StyledGrandTotalContainer>
           </StyledReceiptDiv>
         </StyledInvoiceInfoDiv>

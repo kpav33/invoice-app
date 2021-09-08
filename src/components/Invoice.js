@@ -2,7 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Invoice({ id, due, name, total, status, invoiceObj }) {
+export default function Invoice({
+  id,
+  due,
+  name,
+  total,
+  status,
+  invoiceObj,
+  allInvoices,
+  setAllInvoices,
+}) {
   let totalFormatted = new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -26,12 +35,13 @@ export default function Invoice({ id, due, name, total, status, invoiceObj }) {
   //console.log(date.toUTCString());
   let subpageId = id;
   //console.log(invoiceObj);
+  //console.log(setAllInvoices);
 
   return (
     <InvoiceLink
       to={{
         pathname: `/invoice/${subpageId}`,
-        state: invoiceObj,
+        state: [invoiceObj, allInvoices],
       }}
     >
       <StyledInvoiceDiv>

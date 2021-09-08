@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import data from "../data.json";
+//import data from "../data.json";
 
 import Invoice from "./Invoice";
 
-export default function Invoices() {
+export default function Invoices({ allInvoices, setAllInvoices }) {
   //console.log(data);
-  const [dataT, setData] = useState(data);
-  console.log(dataT);
+  //const [allInvoices, setAllInvoices] = useState(data);
+  //console.log(allInvoices);
 
-  let invoicesArr = dataT.map((invoice) => (
+  let invoicesArr = allInvoices.map((invoice) => (
     <Invoice
       key={invoice.id}
       id={invoice.id}
@@ -18,6 +18,8 @@ export default function Invoices() {
       total={invoice.total}
       status={invoice.status}
       invoiceObj={invoice}
+      allInvoices={allInvoices}
+      setAllInvoices={setAllInvoices}
     />
   ));
 
