@@ -38,6 +38,8 @@ export default function App() {
 const StyledAppDiv = styled.div`
   //background-color: gray;
   //opacity: 0.5;
+  //background-color: rgba(0, 0, 255, 0.3);
+  //z-index: 100;
 `;
 
 //export default App;

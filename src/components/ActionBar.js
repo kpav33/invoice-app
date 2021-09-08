@@ -3,12 +3,16 @@ import styled from "styled-components";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
 
-export default function ActionBar() {
+export default function ActionBar({ allInvoices }) {
   return (
     <StyledActionBarDiv>
       <div>
         <h2>Invoices</h2>
-        <p>7 invoices</p>
+        <p style={{ color: "#888EB0" }}>
+          {allInvoices.length > 0
+            ? `${allInvoices.length} invoices`
+            : "No invoices"}
+        </p>
       </div>
       <ActionBarSelectionDiv>
         <div>Filter</div>
