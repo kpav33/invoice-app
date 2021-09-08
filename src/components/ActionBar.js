@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
 
-export default function ActionBar({ allInvoices }) {
+export default function ActionBar({ allInvoices, setCreateNewInvoice }) {
   return (
     <StyledActionBarDiv>
       <div>
@@ -19,7 +19,7 @@ export default function ActionBar({ allInvoices }) {
         <PlusIconDiv>
           <Plus />
         </PlusIconDiv>
-        <button>New</button>
+        <button onClick={() => setCreateNewInvoice(true)}>New</button>
       </ActionBarSelectionDiv>
     </StyledActionBarDiv>
   );
