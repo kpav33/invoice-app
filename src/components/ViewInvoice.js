@@ -37,6 +37,19 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
     });
   }
 
+  function handleMarkAsPaidClick() {
+    setAllInvoices((prevState) => {
+      const updatedInvoices = prevState.map((invoice) => {
+        if (invoice.id === currInvoiceId) {
+          console.log(invoice.status);
+          invoice.status = "paid";
+        }
+        return invoice;
+      });
+      return updatedInvoices;
+    });
+  }
+
   let statusCapitalized =
     invoice.status[0].toUpperCase() + invoice.status.slice(1);
 
@@ -140,7 +153,11 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
           Delete
         </StyledMangeInvoiceButton>
         {invoice.status !== "paid" && (
-          <StyledMangeInvoiceButton backgroundColor="#7C5DFA" color="#FFFFFF">
+          <StyledMangeInvoiceButton
+            backgroundColor="#7C5DFA"
+            color="#FFFFFF"
+            onClick={handleMarkAsPaidClick}
+          >
             Mark as Paid
           </StyledMangeInvoiceButton>
         )}
