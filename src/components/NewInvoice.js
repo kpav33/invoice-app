@@ -6,6 +6,16 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
   // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
   // https://scrimba.com/learn/learnreact/react-forms-part-1-cW8Jdfy
 
+  function uniqueID() {
+    let char =
+      String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+      String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    let num = Math.floor(1000 + Math.random() * 9000);
+    return char + num;
+  }
+
+  uniqueID();
+
   const [itemObject, setItemObject] = useState({});
 
   const [itemsArray, setItemsArray] = useState([]);
@@ -25,7 +35,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     invoiceDate: "",
     paymentTerms: "",
     projectDescription: "",
-    id: "1",
+    id: uniqueID(),
     paymentDue: "12-3-2021",
     total: "1000",
     status: "pending",
@@ -43,7 +53,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     clientName: formObject.clientName,
     createdAt: formObject.invoiceDate,
     description: formObject.projectDescription,
-    id: "RT0000",
+    id: uniqueID(),
     items: itemsArray,
     paymentDue: "12-3-2021",
     senderAddress: {
@@ -52,8 +62,11 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
       postCode: formObject.postCode,
       street: formObject.streetAddress,
     },
-    status: "draft",
-    total: itemsArray.map((obj) => obj.total).reduce((a, b) => a + b),
+    status: "pending",
+    total:
+      itemsArray.length > 0
+        ? itemsArray.map((obj) => obj.total).reduce((a, b) => a + b)
+        : 0,
   };
 
   //console.log(itemsArray.map((obj) => obj.total).reduce((a, b) => a + b));
