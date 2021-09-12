@@ -3,6 +3,14 @@ import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 
 export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
+  // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
+  // https://scrimba.com/learn/learnreact/react-forms-part-1-cW8Jdfy
+
+  const [itemObject, setItemObject] = useState({});
+
+  const [itemsArray, setItemsArray] = useState([]);
+  //console.log(itemObject);
+
   const [formObject, setFormObject] = useState({
     streetAddress: "",
     city: "",
@@ -21,9 +29,36 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     paymentDue: "12-3-2021",
     total: "1000",
     status: "pending",
+    items: itemsArray,
   });
 
-  console.log(formObject);
+  const newInvoiceObj = {
+    clientAddress: {
+      city: formObject.cityClient,
+      country: formObject.countryClient,
+      postCode: formObject.postCodeClient,
+      street: formObject.streetAddressClient,
+    },
+    clientEmail: formObject.clientEmail,
+    clientName: formObject.clientName,
+    createdAt: formObject.invoiceDate,
+    description: formObject.projectDescription,
+    id: "RT0000",
+    items: itemsArray,
+    paymentDue: "12-3-2021",
+    senderAddress: {
+      city: formObject.city,
+      country: formObject.country,
+      postCode: formObject.postCode,
+      street: formObject.streetAddress,
+    },
+    status: "draft",
+    total: itemsArray.map((obj) => obj.total).reduce((a, b) => a + b),
+  };
+
+  //console.log(itemsArray.map((obj) => obj.total).reduce((a, b) => a + b));
+  //console.log(formObject);
+  //console.log(itemsArray);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -32,8 +67,22 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     setFormObject({ ...formObject, [name]: value });
   }
 
+  function handleChangeItem(event) {
+    const { name, value } = event.target;
+    //console.log(name);
+    //console.log(value);
+    setItemObject({ ...itemObject, [name]: value });
+  }
+
+  //console.log(itemObject);
+
   function handleSaveClick() {
-    setAllInvoices((prevState) => [...prevState, formObject]);
+    setAllInvoices((prevState) => [...prevState, newInvoiceObj]);
+  }
+
+  function test() {
+    itemObject["total"] = itemObject.quantity * itemObject.price;
+    return itemObject.quantity * itemObject.price;
   }
 
   return (
@@ -177,6 +226,70 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
         />
       </div>
       <h3>Item List</h3>
+      <div>
+        <div>
+          <label htmlFor="name">Item Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formObject.items.name}
+            onChange={handleChangeItem}
+          />
+        </div>
+        <div>
+          <label htmlFor="quantity">Qty.</label>
+          <input
+            type="text"
+            id="quantity"
+            name="quantity"
+            value={formObject.items.quantity}
+            onChange={handleChangeItem}
+          />
+        </div>
+        <div>
+          <label htmlFor="price">Price</label>
+          <input
+            type="text"
+            id="price"
+            name="price"
+            value={formObject.items.price}
+            onChange={handleChangeItem}
+          />
+        </div>
+        <div>
+          {/* <label htmlFor="total">Total</label>
+          <input
+            type="total"
+            id="total"
+            name="total"
+            value={itemObject.quantity * itemObject.price}
+            onChange={handleChangeItem}
+          /> */}
+          <p>
+            Total: {itemObject.quantity && itemObject.price ? test() : null}
+          </p>
+        </div>
+        <div>Trash can icon</div>
+      </div>
+      {itemsArray.length > 0 && (
+        <div>
+          {itemsArray.map((object, index) => (
+            <div key={index}>
+              <p>{object.name}</p>
+              <p>{object.quantity}</p>
+              <p>{object.price}</p>
+              <p>Total {object.total}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      <button
+        onClick={() => setItemsArray((prevState) => [...prevState, itemObject])}
+      >
+        Add New Item
+      </button>
+      <br />
       <button onClick={handleSaveClick}>SAVE</button>
     </StyledCreateNewInvoiceDiv>
   );
