@@ -107,8 +107,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
         <button onClick={() => setCreateNewInvoice(false)}>Go back</button>
       </div> */}
       <h2>New Invoice</h2>
-      <p>Bill from</p>
-      <div>
+      <StyledPara>Bill from</StyledPara>
+      <StyledInputDiv>
         <label htmlFor="streetAddress">Street Address</label>
         <input
           type="text"
@@ -117,28 +117,30 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.streetAddress}
           onChange={handleChange}
         />
-      </div>
-      <div>
-        <label htmlFor="city">City</label>
-        <input
-          type="text"
-          id="city"
-          name="city"
-          value={formObject.city}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="postCode">Post Code</label>
-        <input
-          type="text"
-          id="postCode"
-          name="postCode"
-          value={formObject.postCode}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDoubleDiv>
+        <StyledInputDiv>
+          <label htmlFor="city">City</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            value={formObject.city}
+            onChange={handleChange}
+          />
+        </StyledInputDiv>
+        <StyledInputDiv>
+          <label htmlFor="postCode">Post Code</label>
+          <input
+            type="text"
+            id="postCode"
+            name="postCode"
+            value={formObject.postCode}
+            onChange={handleChange}
+          />
+        </StyledInputDiv>
+      </StyledInputDoubleDiv>
+      <StyledInputDiv>
         <label htmlFor="country">Country</label>
         <input
           type="text"
@@ -147,8 +149,9 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.country}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledPara>Bill To</StyledPara>
+      <StyledInputDiv>
         <label htmlFor="clientName">Client's name</label>
         <input
           type="text"
@@ -157,8 +160,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.clientName}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDiv>
         <label htmlFor="clientEmail">Client's Email</label>
         <input
           type="text"
@@ -167,8 +170,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.clientEmail}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDiv>
         <label htmlFor="streetAddressClient">Street Address</label>
         <input
           type="text"
@@ -177,28 +180,30 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.streetAddressClient}
           onChange={handleChange}
         />
-      </div>
-      <div>
-        <label htmlFor="cityClient">City</label>
-        <input
-          type="text"
-          id="cityClient"
-          name="cityClient"
-          value={formObject.cityClient}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="postCodeClient">Post Code</label>
-        <input
-          type="text"
-          id="postCodeClient"
-          name="postCodeClient"
-          value={formObject.postCodeClient}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDoubleDiv>
+        <StyledInputDiv>
+          <label htmlFor="cityClient">City</label>
+          <input
+            type="text"
+            id="cityClient"
+            name="cityClient"
+            value={formObject.cityClient}
+            onChange={handleChange}
+          />
+        </StyledInputDiv>
+        <StyledInputDiv>
+          <label htmlFor="postCodeClient">Post Code</label>
+          <input
+            type="text"
+            id="postCodeClient"
+            name="postCodeClient"
+            value={formObject.postCodeClient}
+            onChange={handleChange}
+          />
+        </StyledInputDiv>
+      </StyledInputDoubleDiv>
+      <StyledInputDiv>
         <label htmlFor="countryClient">Country</label>
         <input
           type="text"
@@ -207,8 +212,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.countryClient}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDiv>
         <label htmlFor="invoiceDate">Invoice Date</label>
         <input
           type="text"
@@ -217,8 +222,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.invoiceDate}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDiv>
         <label htmlFor="paymentTerms">Payment Terms</label>
         <input
           type="text"
@@ -227,8 +232,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.paymentTerms}
           onChange={handleChange}
         />
-      </div>
-      <div>
+      </StyledInputDiv>
+      <StyledInputDiv>
         <label htmlFor="projectDescription">Project Description</label>
         <input
           type="text"
@@ -237,7 +242,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           value={formObject.projectDescription}
           onChange={handleChange}
         />
-      </div>
+      </StyledInputDiv>
       <h3>Item List</h3>
       <div>
         <div>
@@ -332,4 +337,39 @@ const StyledGoBackLink = styled.a`
   svg {
     margin-right: 28px;
   }
+`;
+
+const StyledPara = styled.p`
+  font-weight: bold;
+  color: #7c5dfa;
+  margin-bottom: 24px;
+`;
+
+const StyledInputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  label {
+    color: #7e88c3;
+    margin-bottom: 10px;
+  }
+
+  input {
+    background: #ffffff;
+    border: 1px solid #dfe3fa;
+    border-radius: 4px;
+    padding: 17px 20px;
+    color: #0c0e16;
+    font-weight: bold;
+    width: 100%;
+  }
+`;
+
+const StyledInputDoubleDiv = styled.div`
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+  grid-gap: 23px;
 `;
