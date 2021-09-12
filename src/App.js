@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import ViewInvoice from "./components/ViewInvoice";
 
-console.log(data[0]);
+//console.log(data[0]);
 
 export default function App() {
   const [allInvoices, setAllInvoices] = useState(data);

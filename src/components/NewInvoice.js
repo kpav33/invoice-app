@@ -69,7 +69,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
         : 0,
   };
 
-  console.log(newInvoiceObj);
+  //console.log(newInvoiceObj);
 
   //console.log(itemsArray.map((obj) => obj.total).reduce((a, b) => a + b));
   //console.log(formObject);
@@ -104,6 +104,10 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
   function handleDraftClick() {
     newInvoiceObj["status"] = "draft";
     setAllInvoices((prevState) => [...prevState, newInvoiceObj]);
+    setCreateNewInvoice(false);
+  }
+
+  function handleDiscardClick() {
     setCreateNewInvoice(false);
   }
 
@@ -339,7 +343,11 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
         </StyledAddItemButton>
       </StyledCreateNewInvoiceDiv>
       <StyledButtonsCreateDiv>
-        <StyledCreateInvoiceButton backgroundColor="#F9FAFE" color="#7E88C3">
+        <StyledCreateInvoiceButton
+          backgroundColor="#F9FAFE"
+          color="#7E88C3"
+          onClick={handleDiscardClick}
+        >
           Discard
         </StyledCreateInvoiceButton>
         <StyledCreateInvoiceButton
