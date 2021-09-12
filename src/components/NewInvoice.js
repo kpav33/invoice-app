@@ -91,6 +91,14 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
 
   //console.log(itemObject);
 
+  function handleDeleteClick(name) {
+    setItemsArray((prevState) => {
+      const updatedArray = prevState.filter((item) => item.name !== name);
+      //console.log(prevState);
+      return updatedArray;
+    });
+  }
+
   function handleSaveClick() {
     setAllInvoices((prevState) => [...prevState, newInvoiceObj]);
     setCreateNewInvoice(false);
@@ -304,13 +312,13 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
                 {itemObject.quantity && itemObject.price ? test() : null}
               </div>
             </StyledTotalDiv>
-            <div>Trash can icon</div>
+            <div></div>
           </StyledItemListGridDiv>
         </div>
         {itemsArray.length > 0 && (
           <div>
             {itemsArray.map((object, index) => (
-              <div key={index}>
+              <div key={index} id={index}>
                 <StyledItemListItemDiv>
                   <p>Item Name</p>
                   <p>{object.name}</p>
@@ -328,7 +336,9 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
                     <p>Total</p>
                     <p>{object.total}</p>
                   </StyledTotalParaDiv>
-                  <div>Trash can icon</div>
+                  <button onClick={() => handleDeleteClick(object.name)}>
+                    Trash can icon
+                  </button>
                 </StyledItemListParaGridDiv>
               </div>
             ))}

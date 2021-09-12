@@ -21,8 +21,8 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   }
    */
 
-  console.log(allInvoices);
-  console.log(invoice.id);
+  //console.log(allInvoices);
+  //console.log(invoice.id);
 
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
@@ -41,7 +41,7 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
     setAllInvoices((prevState) => {
       const updatedInvoices = prevState.map((invoice) => {
         if (invoice.id === currInvoiceId) {
-          console.log(invoice.status);
+          //console.log(invoice.status);
           invoice.status = "paid";
         }
         return invoice;
