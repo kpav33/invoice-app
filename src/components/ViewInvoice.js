@@ -119,8 +119,8 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   });
 
   //console.log(formObject.items);
-  console.log(formObject.items);
-  console.log(itemsArray);
+  //console.log(formObject.items);
+  //console.log(itemsArray);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -147,6 +147,7 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   }
 
   //console.log(itemsArray);
+  console.log(formObject);
 
   return (
     <>
@@ -495,6 +496,33 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
           >
             + Add New Item
           </StyledAddItemButton>
+          <button
+            onClick={() => {
+              setEditInvoice(false);
+              setFormObject({
+                streetAddress: invoice.senderAddress.street,
+                city: invoice.senderAddress.city,
+                postCode: invoice.senderAddress.postCode,
+                country: invoice.senderAddress.country,
+                streetAddressClient: invoice.clientAddress.street,
+                cityClient: invoice.clientAddress.city,
+                postCodeClient: invoice.clientAddress.postCode,
+                countryClient: invoice.clientAddress.country,
+                clientEmail: invoice.clientEmail,
+                clientName: invoice.clientName,
+                invoiceDate: invoice.createdAt,
+                paymentTerms: invoice.paymentTerms,
+                projectDescription: invoice.description,
+                id: invoice.id,
+                paymentDue: invoice.paymentDue,
+                total: invoice.total,
+                status: invoice.total,
+                items: invoice.items,
+              });
+            }}
+          >
+            Cancel
+          </button>
         </>
       )}
     </>
