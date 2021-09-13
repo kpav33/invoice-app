@@ -317,180 +317,184 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
       )}
       {editInvoice && (
         <>
-          <button onClick={() => setEditInvoice(false)}>Cancel</button>
-          <button onClick={() => console.log(invoice)}>OK</button>
-          <h2>New Invoice</h2>
-          <StyledPara>Bill from</StyledPara>
-          <StyledInputDiv>
-            <label htmlFor="streetAddress">Street Address</label>
-            <input
-              type="text"
-              id="streetAddress"
-              name="streetAddress"
-              value={formObject.streetAddress}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDoubleDiv>
+          <StyledCreateNewInvoiceDiv>
+            <StyledGoBackLink onClick={() => setEditInvoice(false)}>
+              <ArrowLeft /> Go back
+            </StyledGoBackLink>
+            <button onClick={() => setEditInvoice(false)}>Cancel</button>
+            <button onClick={() => console.log(invoice)}>OK</button>
+            <h2>New Invoice</h2>
+            <StyledPara>Bill from</StyledPara>
             <StyledInputDiv>
-              <label htmlFor="city">City</label>
+              <label htmlFor="streetAddress">Street Address</label>
               <input
                 type="text"
-                id="city"
-                name="city"
-                value={formObject.city}
+                id="streetAddress"
+                name="streetAddress"
+                value={formObject.streetAddress}
                 onChange={handleChange}
               />
             </StyledInputDiv>
-            <StyledInputDiv>
-              <label htmlFor="postCode">Post Code</label>
-              <input
-                type="text"
-                id="postCode"
-                name="postCode"
-                value={formObject.postCode}
-                onChange={handleChange}
-              />
-            </StyledInputDiv>
-          </StyledInputDoubleDiv>
-          <StyledInputDiv>
-            <label htmlFor="country">Country</label>
-            <input
-              type="text"
-              id="country"
-              name="country"
-              value={formObject.country}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledPara>Bill To</StyledPara>
-          <StyledInputDiv>
-            <label htmlFor="clientName">Client's name</label>
-            <input
-              type="text"
-              id="clientName"
-              name="clientName"
-              value={formObject.clientName}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDiv>
-            <label htmlFor="clientEmail">Client's Email</label>
-            <input
-              type="text"
-              id="clientEmail"
-              name="clientEmail"
-              value={formObject.clientEmail}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDiv>
-            <label htmlFor="streetAddressClient">Street Address</label>
-            <input
-              type="text"
-              id="streetAddressClient"
-              name="streetAddressClient"
-              value={formObject.streetAddressClient}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDoubleDiv>
-            <StyledInputDiv>
-              <label htmlFor="cityClient">City</label>
-              <input
-                type="text"
-                id="cityClient"
-                name="cityClient"
-                value={formObject.cityClient}
-                onChange={handleChange}
-              />
-            </StyledInputDiv>
-            <StyledInputDiv>
-              <label htmlFor="postCodeClient">Post Code</label>
-              <input
-                type="text"
-                id="postCodeClient"
-                name="postCodeClient"
-                value={formObject.postCodeClient}
-                onChange={handleChange}
-              />
-            </StyledInputDiv>
-          </StyledInputDoubleDiv>
-          <StyledInputDiv>
-            <label htmlFor="countryClient">Country</label>
-            <input
-              type="text"
-              id="countryClient"
-              name="countryClient"
-              value={formObject.countryClient}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDiv>
-            <label htmlFor="invoiceDate">Invoice Date</label>
-            <input
-              type="text"
-              id="invoiceDate"
-              name="invoiceDate"
-              value={formObject.invoiceDate}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDiv>
-            <label htmlFor="paymentTerms">Payment Terms</label>
-            <input
-              type="text"
-              id="paymentTerms"
-              name="paymentTerms"
-              value={formObject.paymentTerms}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledInputDiv>
-            <label htmlFor="projectDescription">Project Description</label>
-            <input
-              type="text"
-              id="projectDescription"
-              name="projectDescription"
-              value={formObject.projectDescription}
-              onChange={handleChange}
-            />
-          </StyledInputDiv>
-          <StyledItemListTitle>Item List</StyledItemListTitle>
-          <div>
-            <StyledInputDiv>
-              <label htmlFor="name">Item Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formObject.items.name}
-                onChange={handleChangeItem}
-              />
-            </StyledInputDiv>
-            <StyledItemListGridDiv>
+            <StyledInputDoubleDiv>
               <StyledInputDiv>
-                <label htmlFor="quantity">Qty.</label>
+                <label htmlFor="city">City</label>
                 <input
                   type="text"
-                  id="quantity"
-                  name="quantity"
-                  value={formObject.items.quantity}
-                  onChange={handleChangeItem}
+                  id="city"
+                  name="city"
+                  value={formObject.city}
+                  onChange={handleChange}
                 />
               </StyledInputDiv>
               <StyledInputDiv>
-                <label htmlFor="price">Price</label>
+                <label htmlFor="postCode">Post Code</label>
                 <input
                   type="text"
-                  id="price"
-                  name="price"
-                  value={formObject.items.price}
+                  id="postCode"
+                  name="postCode"
+                  value={formObject.postCode}
+                  onChange={handleChange}
+                />
+              </StyledInputDiv>
+            </StyledInputDoubleDiv>
+            <StyledInputDiv>
+              <label htmlFor="country">Country</label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                value={formObject.country}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledPara>Bill To</StyledPara>
+            <StyledInputDiv>
+              <label htmlFor="clientName">Client's name</label>
+              <input
+                type="text"
+                id="clientName"
+                name="clientName"
+                value={formObject.clientName}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDiv>
+              <label htmlFor="clientEmail">Client's Email</label>
+              <input
+                type="text"
+                id="clientEmail"
+                name="clientEmail"
+                value={formObject.clientEmail}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDiv>
+              <label htmlFor="streetAddressClient">Street Address</label>
+              <input
+                type="text"
+                id="streetAddressClient"
+                name="streetAddressClient"
+                value={formObject.streetAddressClient}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDoubleDiv>
+              <StyledInputDiv>
+                <label htmlFor="cityClient">City</label>
+                <input
+                  type="text"
+                  id="cityClient"
+                  name="cityClient"
+                  value={formObject.cityClient}
+                  onChange={handleChange}
+                />
+              </StyledInputDiv>
+              <StyledInputDiv>
+                <label htmlFor="postCodeClient">Post Code</label>
+                <input
+                  type="text"
+                  id="postCodeClient"
+                  name="postCodeClient"
+                  value={formObject.postCodeClient}
+                  onChange={handleChange}
+                />
+              </StyledInputDiv>
+            </StyledInputDoubleDiv>
+            <StyledInputDiv>
+              <label htmlFor="countryClient">Country</label>
+              <input
+                type="text"
+                id="countryClient"
+                name="countryClient"
+                value={formObject.countryClient}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDiv>
+              <label htmlFor="invoiceDate">Invoice Date</label>
+              <input
+                type="text"
+                id="invoiceDate"
+                name="invoiceDate"
+                value={formObject.invoiceDate}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDiv>
+              <label htmlFor="paymentTerms">Payment Terms</label>
+              <input
+                type="text"
+                id="paymentTerms"
+                name="paymentTerms"
+                value={formObject.paymentTerms}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledInputDiv>
+              <label htmlFor="projectDescription">Project Description</label>
+              <input
+                type="text"
+                id="projectDescription"
+                name="projectDescription"
+                value={formObject.projectDescription}
+                onChange={handleChange}
+              />
+            </StyledInputDiv>
+            <StyledItemListTitle>Item List</StyledItemListTitle>
+            <div>
+              <StyledInputDiv>
+                <label htmlFor="name">Item Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formObject.items.name}
                   onChange={handleChangeItem}
                 />
               </StyledInputDiv>
-              <StyledTotalDiv>
-                {/* <label htmlFor="total">Total</label>
+              <StyledItemListGridDiv>
+                <StyledInputDiv>
+                  <label htmlFor="quantity">Qty.</label>
+                  <input
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    value={formObject.items.quantity}
+                    onChange={handleChangeItem}
+                  />
+                </StyledInputDiv>
+                <StyledInputDiv>
+                  <label htmlFor="price">Price</label>
+                  <input
+                    type="text"
+                    id="price"
+                    name="price"
+                    value={formObject.items.price}
+                    onChange={handleChangeItem}
+                  />
+                </StyledInputDiv>
+                <StyledTotalDiv>
+                  {/* <label htmlFor="total">Total</label>
           <input
             type="total"
             id="total"
@@ -498,50 +502,53 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
             value={itemObject.quantity * itemObject.price}
             onChange={handleChangeItem}
           /> */}
-                <p>Total</p>
-                <div>
-                  {itemObject.quantity && itemObject.price ? test() : null}
-                </div>
-              </StyledTotalDiv>
-              <div></div>
-            </StyledItemListGridDiv>
-          </div>
-          {itemsArray.length > 0 && (
-            <div>
-              {itemsArray.map((object, index) => (
-                <div key={index} id={index}>
-                  <StyledItemListItemDiv>
-                    <p>Item Name</p>
-                    <p>{object.name}</p>
-                  </StyledItemListItemDiv>
-                  <StyledItemListParaGridDiv>
-                    <StyledItemListItemDiv>
-                      <p>Qty.</p>
-                      <p>{object.quantity}</p>
-                    </StyledItemListItemDiv>
-                    <StyledItemListItemDiv>
-                      <p>Price</p>
-                      <p>{object.price}</p>
-                    </StyledItemListItemDiv>
-                    <StyledTotalParaDiv>
-                      <p>Total</p>
-                      <p>{object.total}</p>
-                    </StyledTotalParaDiv>
-                    <button onClick={() => handleDeleteEditClick(object.name)}>
-                      Trash can icon
-                    </button>
-                  </StyledItemListParaGridDiv>
-                </div>
-              ))}
+                  <p>Total</p>
+                  <div>
+                    {itemObject.quantity && itemObject.price ? test() : null}
+                  </div>
+                </StyledTotalDiv>
+                <div></div>
+              </StyledItemListGridDiv>
             </div>
-          )}
-          <StyledAddItemButton
-            onClick={() =>
-              setItemsArray((prevState) => [...prevState, itemObject])
-            }
-          >
-            + Add New Item
-          </StyledAddItemButton>
+            {itemsArray.length > 0 && (
+              <div>
+                {itemsArray.map((object, index) => (
+                  <div key={index} id={index}>
+                    <StyledItemListItemDiv>
+                      <p>Item Name</p>
+                      <p>{object.name}</p>
+                    </StyledItemListItemDiv>
+                    <StyledItemListParaGridDiv>
+                      <StyledItemListItemDiv>
+                        <p>Qty.</p>
+                        <p>{object.quantity}</p>
+                      </StyledItemListItemDiv>
+                      <StyledItemListItemDiv>
+                        <p>Price</p>
+                        <p>{object.price}</p>
+                      </StyledItemListItemDiv>
+                      <StyledTotalParaDiv>
+                        <p>Total</p>
+                        <p>{object.total}</p>
+                      </StyledTotalParaDiv>
+                      <button
+                        onClick={() => handleDeleteEditClick(object.name)}
+                      >
+                        Trash can icon
+                      </button>
+                    </StyledItemListParaGridDiv>
+                  </div>
+                ))}
+              </div>
+            )}
+            <StyledAddItemButton
+              onClick={() =>
+                setItemsArray((prevState) => [...prevState, itemObject])
+              }
+            >
+              + Add New Item
+            </StyledAddItemButton>
+          </StyledCreateNewInvoiceDiv>
           <button
             onClick={() => {
               setEditInvoice(false);
@@ -843,6 +850,8 @@ const StyledDeleteInvoiceDiv = styled.div`
 
 const StyledCreateNewInvoiceDiv = styled.div`
   //background: #fff;
+  padding: 32px 0px 0px 0px;
+  margin: 0px 24px;
 
   h2 {
     font-size: 24px;
