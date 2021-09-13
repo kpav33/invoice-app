@@ -114,7 +114,7 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
     id: invoice.id,
     paymentDue: invoice.paymentDue,
     total: invoice.total,
-    status: invoice.total,
+    status: invoice.status,
     items: itemsArray,
   });
 
@@ -147,7 +147,53 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   }
 
   //console.log(itemsArray);
-  console.log(formObject);
+  //console.log(formObject);
+
+  const newInvoiceObj = {
+    clientAddress: {
+      city: formObject.cityClient,
+      country: formObject.countryClient,
+      postCode: formObject.postCodeClient,
+      street: formObject.streetAddressClient,
+    },
+    clientEmail: formObject.clientEmail,
+    clientName: formObject.clientName,
+    createdAt: formObject.invoiceDate,
+    description: formObject.projectDescription,
+    id: formObject.id,
+    items: itemsArray,
+    paymentDue: "12-3-2021",
+    senderAddress: {
+      city: formObject.city,
+      country: formObject.country,
+      postCode: formObject.postCode,
+      street: formObject.streetAddress,
+    },
+    status: formObject.status,
+    total:
+      itemsArray.length > 0
+        ? itemsArray.map((obj) => obj.total).reduce((a, b) => a + b)
+        : 0,
+  };
+
+  function handleSaveClick() {
+    // setAllInvoices((prevState) => [...prevState, newInvoiceObj]);
+    setAllInvoices((prevState) => {
+      const updatedInvoices = prevState.map((obj) => {
+        if (obj.id === formObject.id) {
+          return newInvoiceObj;
+        }
+        return obj;
+      });
+      return updatedInvoices;
+    });
+    setEditInvoice(false);
+  }
+
+  function test() {
+    itemObject["total"] = itemObject.quantity * itemObject.price;
+    return itemObject.quantity * itemObject.price;
+  }
 
   return (
     <>
@@ -523,6 +569,9 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
           >
             Cancel
           </button>
+          <Link to="/" onClick={handleSaveClick}>
+            Save
+          </Link>
         </>
       )}
     </>
