@@ -941,6 +941,12 @@ const StyledDeleteInvoiceDiv = styled.div`
   //z-index: 9999;
   //opacity: 0;
 
+  @media only screen and (min-width: 900px) {
+    width: 30%;
+    top: 40%;
+    left: 35%;
+  }
+
   h3 {
     margin: 0;
     font-size: 20px;
