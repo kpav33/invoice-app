@@ -40,6 +40,11 @@ const StyledAppDiv = styled.div`
   //opacity: 0.5;
   //background-color: rgba(0, 0, 255, 0.3);
   //z-index: 100;
+
+  @media only screen and (min-width: 900px) {
+    display: flex;
+    flex-direction: row;
+  }
 `;
 
 //export default App;

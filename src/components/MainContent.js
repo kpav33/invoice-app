@@ -32,4 +32,9 @@ export default function MainContent({ allInvoices, setAllInvoices }) {
 
 const StyledMain = styled.main`
   padding: 32px 24px;
+
+  @media only screen and (min-width: 900px) {
+    width: 100%;
+    margin: 3% 20% 0% 15%;
+  }
 `;

@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
 
 export default function ActionBar({ allInvoices, setCreateNewInvoice }) {
+  // Store users device width
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, [width]);
+
+  //console.log(width);
+
   return (
     <StyledActionBarDiv>
       <div>
@@ -19,7 +28,9 @@ export default function ActionBar({ allInvoices, setCreateNewInvoice }) {
         <PlusIconDiv>
           <Plus />
         </PlusIconDiv>
-        <button onClick={() => setCreateNewInvoice(true)}>New</button>
+        <button onClick={() => setCreateNewInvoice(true)}>
+          {width < 450 ? "New" : "New invoice"}
+        </button>
       </ActionBarSelectionDiv>
     </StyledActionBarDiv>
   );
@@ -34,6 +45,13 @@ const StyledActionBarDiv = styled.div`
   h2 {
     margin: 0;
     margin-bottom: 4px;
+
+    @media only screen and (min-width: 900px) {
+      font-size: 32px;
+      margin-bottom: 8px;
+      line-height: 36px;
+      letter-spacing: -1px;
+    }
   }
 
   p {
@@ -59,6 +77,10 @@ const ActionBarSelectionDiv = styled.div`
     letter-spacing: -0.25px;
     line-height: 15px;
 
+    @media only screen and (min-width: 900px) {
+      padding: 15px 14px 15px 56px;
+    }
+
     &:hover {
       cursor: pointer;
     }
@@ -76,4 +98,8 @@ const PlusIconDiv = styled.div`
   border-radius: 50%;
   position: absolute;
   left: 40%;
+
+  @media only screen and (min-width: 900px) {
+    left: 30%;
+  }
 `;

@@ -47,6 +47,10 @@ const StyledInvoicesDiv = styled.div`
   grid-template: auto / auto;
   margin-top: 32px;
   grid-gap: 16px;
+
+  @media only screen and (min-width: 900px) {
+    margin-top: 64px;
+  }
 `;
 
 const StyledNoInvoicesLeftDiv = styled.div`

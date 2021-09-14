@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ReactComponent as ArrowRight } from "../assets/icon-arrow-right.svg";
 
 export default function Invoice({
   id,
@@ -49,9 +50,7 @@ export default function Invoice({
           <span>#</span>
           {id}
         </StyledIdPara>
-        <StyledDatePara>
-          <span>Due</span> {due}
-        </StyledDatePara>
+        <StyledDatePara>{`Due ${due}`}</StyledDatePara>
         <StyledNamePara>{name}</StyledNamePara>
         <StyledValuePara>{totalFormatted}</StyledValuePara>
         <StyledStatusDiv
@@ -61,6 +60,7 @@ export default function Invoice({
           <span className="dot"></span>
           {statusCapitalized}
         </StyledStatusDiv>
+        <ArrowRight />
       </StyledInvoiceDiv>
     </InvoiceLink>
   );
@@ -83,9 +83,12 @@ const StyledInvoiceDiv = styled.div`
     "date status"
     "value status";
 
-  p {
-    //padding: 0;
-    margin: 0;
+  @media only screen and (min-width: 900px) {
+    grid-template: 1fr / 1fr 1.5fr 2fr 1fr 1fr 10px;
+    grid-template-areas: "id date name value status";
+    align-items: center;
+    justify-items: flex-start;
+    grid-gap: 45px;
   }
 `;
 
@@ -93,18 +96,39 @@ const StyledIdPara = styled.p`
   font-weight: bold;
   color: var(--text-light-black);
   grid-area: id;
+  margin: 0;
 
   span {
     color: var(--text-light-form);
+  }
+
+  @media only screen and (min-width: 900px) {
+    //margin-left: 32px;
   }
 `;
 
 const StyledDatePara = styled.p`
   color: var(--text-light-form);
   grid-area: date;
+  margin: 0;
 
-  span {
+  /* span {
     color: var(--date-text-light);
+    @media only screen and (min-width: 900px) {
+      margin-right: 10px;
+    }
+  } */
+
+  @media only screen and (min-width: 900px) {
+    //margin: 0px 0px 0px 43px;
+    //width: 100%;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    text-align: left;
+    //align-self: flex-start;
+    //justify-items: flex-start;
+    justify-self: flex-start;
   }
 `;
 
@@ -113,6 +137,15 @@ const StyledNamePara = styled.p`
   text-align: right;
   grid-area: name;
   //align-self: flex-end;
+  margin: 0;
+
+  @media only screen and (min-width: 900px) {
+    //margin: 0px 73px 0px 45px;
+    text-align: left;
+    //width: 100%;
+    //margin-left: 70px;
+    justify-self: flex-start;
+  }
 `;
 
 const StyledValuePara = styled.p`
@@ -122,6 +155,13 @@ const StyledValuePara = styled.p`
   letter-spacing: -0.8px;
   color: var(--text-light-black);
   grid-area: value;
+  margin: 0;
+
+  @media only screen and (min-width: 900px) {
+    //margin: 0px 40px 0px 73px;
+    //text-align: right;
+    justify-self: flex-end;
+  }
 `;
 
 const StyledStatusDiv = styled.div`
@@ -135,6 +175,11 @@ const StyledStatusDiv = styled.div`
   justify-content: center;
   align-items: center;
   grid-area: status;
+  margin: 0;
+
+  @media only screen and (min-width: 900px) {
+    //margin-right: 48px;
+  }
 
   .dot {
     height: 8px;
