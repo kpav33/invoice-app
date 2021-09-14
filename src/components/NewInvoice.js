@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
+import { ReactComponent as Delete } from "../assets/icon-delete.svg";
 
 export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
   // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
@@ -336,9 +337,11 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
                     <p>Total</p>
                     <p>{object.total}</p>
                   </StyledTotalParaDiv>
-                  <button onClick={() => handleDeleteClick(object.name)}>
-                    Trash can icon
-                  </button>
+                  <StyledDeleteButton
+                    onClick={() => handleDeleteClick(object.name)}
+                  >
+                    <Delete />
+                  </StyledDeleteButton>
                 </StyledItemListParaGridDiv>
               </div>
             ))}
@@ -525,7 +528,7 @@ const StyledAddItemButton = styled.button`
   background: hsl(228, 71%, 96%);
   border-radius: 24px;
   width: 100%;
-  padding: 17px 107px;
+  padding: 17px 25px;
   font-weight: bold;
   color: #7e88c3;
   margin: 26px 0px 48px 0px;
@@ -543,7 +546,7 @@ const StyledButtonsCreateDiv = styled.div`
 const StyledCreateInvoiceButton = styled.button`
   border: none;
   background: ${(props) => props.backgroundColor};
-  padding: 17px 15px;
+  padding: 17px 12px;
   font-family: "Spartan", sans-serif;
   font-size: 12px;
   font-weight: bold;
@@ -551,6 +554,16 @@ const StyledCreateInvoiceButton = styled.button`
   line-height: 15px;
   letter-spacing: -0.25px;
   border-radius: 25px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const StyledDeleteButton = styled.button`
+  background: none;
+  border: none;
+  margin-top: 40px;
 
   &:hover {
     cursor: pointer;

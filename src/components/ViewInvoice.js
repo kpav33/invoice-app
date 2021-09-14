@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocation, Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
+import { ReactComponent as Delete } from "../assets/icon-delete.svg";
 
 export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   let { state } = useLocation();
@@ -323,8 +324,6 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
             <StyledGoBackLink onClick={() => setEditInvoice(false)}>
               <ArrowLeft /> Go back
             </StyledGoBackLink>
-            <button onClick={() => setEditInvoice(false)}>Cancel</button>
-            <button onClick={() => console.log(invoice)}>OK</button>
             <h2>New Invoice</h2>
             <StyledPara>Bill from</StyledPara>
             <StyledInputDiv>
@@ -533,11 +532,11 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
                         <p>Total</p>
                         <p>{object.total}</p>
                       </StyledTotalParaDiv>
-                      <button
+                      <StyledDeleteButton
                         onClick={() => handleDeleteEditClick(object.name)}
                       >
-                        Trash can icon
-                      </button>
+                        <Delete />
+                      </StyledDeleteButton>
                     </StyledItemListParaGridDiv>
                   </div>
                 ))}
@@ -1007,7 +1006,7 @@ const StyledAddItemButton = styled.button`
   background: hsl(228, 71%, 96%);
   border-radius: 24px;
   width: 100%;
-  padding: 17px 107px;
+  padding: 17px 25px;
   font-weight: bold;
   color: #7e88c3;
   margin: 26px 0px 48px 0px;
@@ -1035,6 +1034,16 @@ const StyledCreateInvoiceButton = styled.button`
   letter-spacing: -0.25px;
   border-radius: 25px;
   margin-right: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const StyledDeleteButton = styled.button`
+  background: none;
+  border: none;
+  margin-top: 40px;
 
   &:hover {
     cursor: pointer;
