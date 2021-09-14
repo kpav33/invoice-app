@@ -3,7 +3,13 @@ import styled from "styled-components";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
 
-export default function ActionBar({ allInvoices, setCreateNewInvoice }) {
+export default function ActionBar({
+  allInvoices,
+  setCreateNewInvoice,
+  filter,
+  setFilter,
+  handleChange,
+}) {
   // Store users device width
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -24,7 +30,13 @@ export default function ActionBar({ allInvoices, setCreateNewInvoice }) {
         </p>
       </div>
       <ActionBarSelectionDiv>
-        <div>Filter</div>
+        <select value={filter} onChange={handleChange} name="filter">
+          <option value="all">Filter</option>
+          <option value="paid">Paid</option>
+          <option value="pending">Pending</option>
+          <option value="draft">Draft</option>
+          <option value="all">All</option>
+        </select>
         <PlusIconDiv>
           <Plus />
         </PlusIconDiv>
@@ -97,9 +109,9 @@ const PlusIconDiv = styled.div`
   background: white;
   border-radius: 50%;
   position: absolute;
-  left: 40%;
+  left: 55%;
 
   @media only screen and (min-width: 900px) {
-    left: 30%;
+    left: 42%;
   }
 `;

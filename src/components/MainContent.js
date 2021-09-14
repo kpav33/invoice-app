@@ -7,6 +7,14 @@ import NewInvoice from "./NewInvoice";
 
 export default function MainContent({ allInvoices, setAllInvoices }) {
   const [createNewInvoice, setCreateNewInvoice] = useState(false);
+  const [filter, setFilter] = useState("all");
+
+  function handleChange(event) {
+    const { value } = event.target;
+    setFilter(value);
+  }
+
+  //console.log(filter);
 
   return (
     <StyledMain>
@@ -16,8 +24,15 @@ export default function MainContent({ allInvoices, setAllInvoices }) {
             allInvoices={allInvoices}
             setAllInvoices={setAllInvoices}
             setCreateNewInvoice={setCreateNewInvoice}
+            filter={filter}
+            setFilter={setFilter}
+            handleChange={handleChange}
           />
-          <Invoices allInvoices={allInvoices} setAllInvoices={setAllInvoices} />
+          <Invoices
+            allInvoices={allInvoices}
+            setAllInvoices={setAllInvoices}
+            filter={filter}
+          />
         </>
       )}
       {createNewInvoice && (

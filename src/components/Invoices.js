@@ -5,24 +5,36 @@ import { ReactComponent as SvgEmpty } from "../assets/illustration-empty.svg";
 
 import Invoice from "./Invoice";
 
-export default function Invoices({ allInvoices, setAllInvoices }) {
+export default function Invoices({ allInvoices, setAllInvoices, filter }) {
   //console.log(data);
   //const [allInvoices, setAllInvoices] = useState(data);
   //console.log(allInvoices);
 
-  let invoicesArr = allInvoices.map((invoice) => (
-    <Invoice
-      key={invoice.id}
-      id={invoice.id}
-      due={invoice.paymentDue}
-      name={invoice.clientName}
-      total={invoice.total}
-      status={invoice.status}
-      invoiceObj={invoice}
-      allInvoices={allInvoices}
-      setAllInvoices={setAllInvoices}
-    />
-  ));
+  let invoicesArr = allInvoices
+    .filter((invoice) => {
+      if (filter === "paid") {
+        return invoice.status === "paid";
+      } else if (filter === "pending") {
+        return invoice.status === "pending";
+      } else if (filter === "draft") {
+        return invoice.status === "draft";
+      } else {
+        return invoice;
+      }
+    })
+    .map((invoice) => (
+      <Invoice
+        key={invoice.id}
+        id={invoice.id}
+        due={invoice.paymentDue}
+        name={invoice.clientName}
+        total={invoice.total}
+        status={invoice.status}
+        invoiceObj={invoice}
+        allInvoices={allInvoices}
+        setAllInvoices={setAllInvoices}
+      />
+    ));
 
   let noInvoicesLeft = (
     <StyledNoInvoicesLeftDiv>
