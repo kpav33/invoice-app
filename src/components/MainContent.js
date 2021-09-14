@@ -5,7 +5,7 @@ import ActionBar from "./ActionBar";
 import Invoices from "./Invoices";
 import NewInvoice from "./NewInvoice";
 
-export default function MainContent({ allInvoices, setAllInvoices }) {
+export default function MainContent({ allInvoices, setAllInvoices, width }) {
   const [createNewInvoice, setCreateNewInvoice] = useState(false);
   const [filter, setFilter] = useState("all");
 
@@ -27,11 +27,13 @@ export default function MainContent({ allInvoices, setAllInvoices }) {
             filter={filter}
             setFilter={setFilter}
             handleChange={handleChange}
+            width={width}
           />
           <Invoices
             allInvoices={allInvoices}
             setAllInvoices={setAllInvoices}
             filter={filter}
+            width={width}
           />
         </>
       )}

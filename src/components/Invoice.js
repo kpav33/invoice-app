@@ -12,6 +12,7 @@ export default function Invoice({
   invoiceObj,
   allInvoices,
   setAllInvoices,
+  width,
 }) {
   let totalFormatted = new Intl.NumberFormat("en-GB", {
     style: "currency",
@@ -60,7 +61,7 @@ export default function Invoice({
           <span className="dot"></span>
           {statusCapitalized}
         </StyledStatusDiv>
-        <ArrowRight />
+        {width > 450 && <ArrowRight />}
       </StyledInvoiceDiv>
     </InvoiceLink>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GlobalStyles } from "./GlobalStyle.style";
 import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
@@ -13,6 +13,16 @@ import ViewInvoice from "./components/ViewInvoice";
 export default function App() {
   const [allInvoices, setAllInvoices] = useState(data);
 
+  // Store users device width
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+    return window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, [width]);
+
+  //console.log(width);
+
   return (
     <StyledAppDiv>
       <GlobalStyles />
@@ -22,12 +32,14 @@ export default function App() {
           <MainContent
             allInvoices={allInvoices}
             setAllInvoices={setAllInvoices}
+            width={width}
           />
         </Route>
         <Route path="/invoice/:invoiceId">
           <ViewInvoice
             allInvoices={allInvoices}
             setAllInvoices={setAllInvoices}
+            width={width}
           />
         </Route>
       </Switch>

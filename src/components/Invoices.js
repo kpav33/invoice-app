@@ -5,7 +5,12 @@ import { ReactComponent as SvgEmpty } from "../assets/illustration-empty.svg";
 
 import Invoice from "./Invoice";
 
-export default function Invoices({ allInvoices, setAllInvoices, filter }) {
+export default function Invoices({
+  allInvoices,
+  setAllInvoices,
+  filter,
+  width,
+}) {
   //console.log(data);
   //const [allInvoices, setAllInvoices] = useState(data);
   //console.log(allInvoices);
@@ -33,6 +38,7 @@ export default function Invoices({ allInvoices, setAllInvoices, filter }) {
         invoiceObj={invoice}
         allInvoices={allInvoices}
         setAllInvoices={setAllInvoices}
+        width={width}
       />
     ));
 

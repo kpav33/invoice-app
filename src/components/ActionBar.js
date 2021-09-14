@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
@@ -9,16 +9,8 @@ export default function ActionBar({
   filter,
   setFilter,
   handleChange,
+  width,
 }) {
-  // Store users device width
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
-  }, [width]);
-
-  //console.log(width);
-
   return (
     <StyledActionBarDiv>
       <div>

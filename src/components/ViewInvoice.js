@@ -4,7 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
 
-export default function ViewInvoice({ allInvoices, setAllInvoices }) {
+export default function ViewInvoice({ allInvoices, setAllInvoices, width }) {
   let { state } = useLocation();
   let [invoice] = state;
   //console.log(state);
@@ -199,55 +199,90 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   return (
     <>
       {!editInvoice && (
-        <>
+        <StyledViewInvoicePageDiv>
           <StyledViewInvoiceDiv>
             <StyledBackLink to="/">
               <ArrowLeft /> Go back
             </StyledBackLink>
             <StyledStatusDiv>
-              <p>Status</p>
-              <StyledStatusStateDiv
-                backgroundColor={statusBackgroundColor}
-                color={statusColor}
-              >
-                <span className="dot"></span>
-                {statusCapitalized}
-              </StyledStatusStateDiv>
+              <div className="left">
+                <p>Status</p>
+                <StyledStatusStateDiv
+                  backgroundColor={statusBackgroundColor}
+                  color={statusColor}
+                >
+                  <span className="dot"></span>
+                  {statusCapitalized}
+                </StyledStatusStateDiv>
+              </div>
+              {width > 450 && (
+                <div className="right">
+                  {invoice.status !== "paid" && (
+                    <StyledManageInvoiceButton
+                      backgroundColor="#F9FAFE"
+                      color="#7E88C3"
+                      onClick={() => setEditInvoice(true)}
+                    >
+                      Edit
+                    </StyledManageInvoiceButton>
+                  )}
+                  <StyledManageInvoiceButton
+                    backgroundColor="#EC5757"
+                    color="#FFFFFF"
+                    onClick={() => setShowDeleteMessage(true)}
+                  >
+                    Delete
+                  </StyledManageInvoiceButton>
+                  {invoice.status !== "paid" && (
+                    <StyledManageInvoiceButton
+                      backgroundColor="#7C5DFA"
+                      color="#FFFFFF"
+                      onClick={handleMarkAsPaidClick}
+                    >
+                      Mark as Paid
+                    </StyledManageInvoiceButton>
+                  )}
+                </div>
+              )}
             </StyledStatusDiv>
             <StyledInvoiceInfoDiv>
-              <StyledDivId>
-                <p>
-                  <span>#</span>
-                  {invoice.id}
-                </p>
-                <p>{invoice.description}</p>
-              </StyledDivId>
-              <StyledSenderAddressDiv>
-                <p>{invoice.senderAddress.street}</p>
-                <p>{invoice.senderAddress.city}</p>
-                <p>{invoice.senderAddress.postCode}</p>
-                <p>{invoice.senderAddress.country}</p>
-              </StyledSenderAddressDiv>
-              <StyledDateClientDiv>
-                <StyledDateDiv>
-                  <p>Invoice Date</p>
-                  <p className="bold">{invoice.createdAt}</p>
-                  <p>Payment Due</p>
-                  <p className="bold">{invoice.paymentDue}</p>
-                </StyledDateDiv>
-                <StyledBillToDiv>
-                  <p>Bill To</p>
-                  <p className="bold">{invoice.clientName}</p>
-                  <p>{invoice.clientAddress.street}</p>
-                  <p>{invoice.clientAddress.city}</p>
-                  <p>{invoice.clientAddress.postCode}</p>
-                  <p>{invoice.clientAddress.country}</p>
-                </StyledBillToDiv>
-              </StyledDateClientDiv>
-              <StyledSentToDiv>
-                <p>Sent to</p>
-                <p>{invoice.clientEmail}</p>
-              </StyledSentToDiv>
+              <div className="topRow">
+                <StyledDivId>
+                  <p>
+                    <span>#</span>
+                    {invoice.id}
+                  </p>
+                  <p>{invoice.description}</p>
+                </StyledDivId>
+                <StyledSenderAddressDiv>
+                  <p>{invoice.senderAddress.street}</p>
+                  <p>{invoice.senderAddress.city}</p>
+                  <p>{invoice.senderAddress.postCode}</p>
+                  <p>{invoice.senderAddress.country}</p>
+                </StyledSenderAddressDiv>
+              </div>
+              <div className="middleRow">
+                <StyledDateClientDiv>
+                  <StyledDateDiv>
+                    <p>Invoice Date</p>
+                    <p className="bold">{invoice.createdAt}</p>
+                    <p>Payment Due</p>
+                    <p className="bold">{invoice.paymentDue}</p>
+                  </StyledDateDiv>
+                  <StyledBillToDiv>
+                    <p>Bill To</p>
+                    <p className="bold">{invoice.clientName}</p>
+                    <p>{invoice.clientAddress.street}</p>
+                    <p>{invoice.clientAddress.city}</p>
+                    <p>{invoice.clientAddress.postCode}</p>
+                    <p>{invoice.clientAddress.country}</p>
+                  </StyledBillToDiv>
+                </StyledDateClientDiv>
+                <StyledSentToDiv>
+                  <p>Sent to</p>
+                  <p>{invoice.clientEmail}</p>
+                </StyledSentToDiv>
+              </div>
               <StyledReceiptDiv>
                 <StyledRecepitItemsContainerDiv>
                   {receiptItems}
@@ -259,34 +294,36 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
               </StyledReceiptDiv>
             </StyledInvoiceInfoDiv>
           </StyledViewInvoiceDiv>
-          <StyledManageInvoiceBar>
-            {invoice.status !== "paid" && (
+          {width < 450 && (
+            <StyledManageInvoiceBar>
+              {invoice.status !== "paid" && (
+                <StyledManageInvoiceButton
+                  backgroundColor="#F9FAFE"
+                  color="#7E88C3"
+                  onClick={() => setEditInvoice(true)}
+                >
+                  Edit
+                </StyledManageInvoiceButton>
+              )}
               <StyledManageInvoiceButton
-                backgroundColor="#F9FAFE"
-                color="#7E88C3"
-                onClick={() => setEditInvoice(true)}
-              >
-                Edit
-              </StyledManageInvoiceButton>
-            )}
-            <StyledManageInvoiceButton
-              backgroundColor="#EC5757"
-              color="#FFFFFF"
-              onClick={() => setShowDeleteMessage(true)}
-            >
-              Delete
-            </StyledManageInvoiceButton>
-            {invoice.status !== "paid" && (
-              <StyledManageInvoiceButton
-                backgroundColor="#7C5DFA"
+                backgroundColor="#EC5757"
                 color="#FFFFFF"
-                onClick={handleMarkAsPaidClick}
+                onClick={() => setShowDeleteMessage(true)}
               >
-                Mark as Paid
+                Delete
               </StyledManageInvoiceButton>
-            )}
-          </StyledManageInvoiceBar>
-        </>
+              {invoice.status !== "paid" && (
+                <StyledManageInvoiceButton
+                  backgroundColor="#7C5DFA"
+                  color="#FFFFFF"
+                  onClick={handleMarkAsPaidClick}
+                >
+                  Mark as Paid
+                </StyledManageInvoiceButton>
+              )}
+            </StyledManageInvoiceBar>
+          )}
+        </StyledViewInvoicePageDiv>
       )}
       {showDeleteMessage && (
         <StyledDeleteInvoiceDiv>
@@ -595,6 +632,13 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
   );
 }
 
+const StyledViewInvoicePageDiv = styled.div`
+  @media only screen and (min-width: 900px) {
+    margin: 2% 20% 2% 15%;
+    width: 100%;
+  }
+`;
+
 const StyledViewInvoiceDiv = styled.div`
   padding: 32px 0px 0px 0px;
   margin: 0px 24px;
@@ -636,8 +680,39 @@ const StyledStatusDiv = styled.div`
   border-radius: 10px;
   //margin: 32px 24px 16px 32px;
 
-  & > p {
-    color: #858bb2;
+  .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    @media only screen and (min-width: 900px) {
+      justify-content: flex-start;
+    }
+
+    & > p {
+      color: #858bb2;
+      //margin-right: 16px;
+
+      @media only screen and (min-width: 900px) {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 900px) {
+    justify-content: flex-start;
+  }
+
+  .right {
+    @media only screen and (min-width: 900px) {
+      max-width: 330px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
 `;
 
@@ -667,6 +742,20 @@ const StyledInvoiceInfoDiv = styled.div`
   border-radius: 10px;
   padding: 24px;
   color: var(--text-light-form);
+
+  @media only screen and (min-width: 900px) {
+    .topRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .middleRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
 `;
 
 const StyledDivId = styled.div`
@@ -680,6 +769,11 @@ const StyledDivId = styled.div`
   p:nth-child(1) {
     margin: 0;
     margin-bottom: 4px;
+
+    @media only screen and (min-width: 900px) {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
   }
 
   p:nth-child(2) {
@@ -697,6 +791,10 @@ const StyledSenderAddressDiv = styled.div`
     margin: 0;
     line-height: 18px;
     font-size: 11px;
+
+    @media only screen and (min-width: 900px) {
+      text-align: right;
+    }
   }
 `;
 
@@ -706,6 +804,10 @@ const StyledDateClientDiv = styled.div`
   //justify-content: space-between;
   grid-template: 1fr / 1fr 1fr;
   grid-gap: 41px;
+
+  @media only screen and (min-width: 900px) {
+    grid-gap: 100px;
+  }
 
   .bold {
     font-size: 15px;
@@ -735,6 +837,11 @@ const StyledBillToDiv = styled.div`
 
 const StyledSentToDiv = styled.div`
   margin-top: 32px;
+
+  @media only screen and (min-width: 900px) {
+    margin-top: 12px;
+    margin-right: 120px;
+  }
 
   p:nth-child(1) {
     margin: 0;
@@ -812,6 +919,10 @@ const StyledManageInvoiceButton = styled.button`
   line-height: 15px;
   letter-spacing: -0.25px;
   border-radius: 25px;
+
+  @media only screen and (min-width: 900px) {
+    margin-left: 8px;
+  }
 
   &:hover {
     cursor: pointer;
