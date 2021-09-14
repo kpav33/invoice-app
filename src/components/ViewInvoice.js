@@ -551,36 +551,45 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
               + Add New Item
             </StyledAddItemButton>
           </StyledCreateNewInvoiceDiv>
-          <button
-            onClick={() => {
-              setEditInvoice(false);
-              setFormObject({
-                streetAddress: invoice.senderAddress.street,
-                city: invoice.senderAddress.city,
-                postCode: invoice.senderAddress.postCode,
-                country: invoice.senderAddress.country,
-                streetAddressClient: invoice.clientAddress.street,
-                cityClient: invoice.clientAddress.city,
-                postCodeClient: invoice.clientAddress.postCode,
-                countryClient: invoice.clientAddress.country,
-                clientEmail: invoice.clientEmail,
-                clientName: invoice.clientName,
-                invoiceDate: invoice.createdAt,
-                paymentTerms: invoice.paymentTerms,
-                projectDescription: invoice.description,
-                id: invoice.id,
-                paymentDue: invoice.paymentDue,
-                total: invoice.total,
-                status: invoice.total,
-                items: invoice.items,
-              });
-            }}
-          >
-            Cancel
-          </button>
-          <Link to="/" onClick={handleSaveClick}>
-            Save
-          </Link>
+          <StyledButtonsCreateDiv>
+            <StyledCreateInvoiceButton
+              backgroundColor="#F9FAFE"
+              color="#7E88C3"
+              onClick={() => {
+                setEditInvoice(false);
+                setFormObject({
+                  streetAddress: invoice.senderAddress.street,
+                  city: invoice.senderAddress.city,
+                  postCode: invoice.senderAddress.postCode,
+                  country: invoice.senderAddress.country,
+                  streetAddressClient: invoice.clientAddress.street,
+                  cityClient: invoice.clientAddress.city,
+                  postCodeClient: invoice.clientAddress.postCode,
+                  countryClient: invoice.clientAddress.country,
+                  clientEmail: invoice.clientEmail,
+                  clientName: invoice.clientName,
+                  invoiceDate: invoice.createdAt,
+                  paymentTerms: invoice.paymentTerms,
+                  projectDescription: invoice.description,
+                  id: invoice.id,
+                  paymentDue: invoice.paymentDue,
+                  total: invoice.total,
+                  status: invoice.total,
+                  items: invoice.items,
+                });
+              }}
+            >
+              Cancel
+            </StyledCreateInvoiceButton>
+            <Link to="/" onClick={handleSaveClick}>
+              <StyledCreateInvoiceButton
+                backgroundColor="#7C5DFA"
+                color="#ffffff"
+              >
+                Save Changes
+              </StyledCreateInvoiceButton>
+            </Link>
+          </StyledButtonsCreateDiv>
         </>
       )}
     </>
@@ -1009,14 +1018,15 @@ const StyledButtonsCreateDiv = styled.div`
   //padding: 21px 24px;
   padding: 21px 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
+  margin-top: 30px;
 `;
 
 const StyledCreateInvoiceButton = styled.button`
   border: none;
   background: ${(props) => props.backgroundColor};
-  padding: 17px 15px;
+  padding: 17px 26px;
   font-family: "Spartan", sans-serif;
   font-size: 12px;
   font-weight: bold;
@@ -1024,6 +1034,7 @@ const StyledCreateInvoiceButton = styled.button`
   line-height: 15px;
   letter-spacing: -0.25px;
   border-radius: 25px;
+  margin-right: 16px;
 
   &:hover {
     cursor: pointer;
