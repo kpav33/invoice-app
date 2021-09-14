@@ -62,6 +62,10 @@ const StyledNoInvoicesLeftDiv = styled.div`
   margin: 0 auto;
   margin-top: 70px;
 
+  @media only screen and (min-width: 900px) {
+    margin-top: 6px;
+  }
+
   h3 {
     margin: 40px 0px 24px 0px;
     font-size: 20px;

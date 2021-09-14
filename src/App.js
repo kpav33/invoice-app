@@ -44,6 +44,8 @@ const StyledAppDiv = styled.div`
   @media only screen and (min-width: 900px) {
     display: flex;
     flex-direction: row;
+    //max-height: 100%;
+    min-height: 100vh;
   }
 `;
 
