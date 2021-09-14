@@ -259,13 +259,15 @@ export default function ViewInvoice({ allInvoices, setAllInvoices }) {
             </StyledInvoiceInfoDiv>
           </StyledViewInvoiceDiv>
           <StyledManageInvoiceBar>
-            <StyledManageInvoiceButton
-              backgroundColor="#F9FAFE"
-              color="#7E88C3"
-              onClick={() => setEditInvoice(true)}
-            >
-              Edit
-            </StyledManageInvoiceButton>
+            {invoice.status !== "paid" && (
+              <StyledManageInvoiceButton
+                backgroundColor="#F9FAFE"
+                color="#7E88C3"
+                onClick={() => setEditInvoice(true)}
+              >
+                Edit
+              </StyledManageInvoiceButton>
+            )}
             <StyledManageInvoiceButton
               backgroundColor="#EC5757"
               color="#FFFFFF"
