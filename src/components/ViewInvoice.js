@@ -81,6 +81,20 @@ export default function ViewInvoice({ allInvoices, setAllInvoices, width }) {
   ));
   //console.log(receiptItems);
 
+  let receiptItemsDesktop = invoice.items.map((item) => (
+    <StyledReceiptItemsDesktopDiv key={uniqueId()}>
+      {/* <div>
+        <p className="black">{item.name}</p>
+        <p>{`${item.quantity} x € ${item.price}`}</p>
+      </div>
+      <p className="black">{`€ ${item.total}`}</p> */}
+      <p className="black">{item.name}</p>
+      <p>{item.quantity}</p>
+      <p>{`€ ${item.price}`}</p>
+      <p className="black">{`€ ${item.total}`}</p>
+    </StyledReceiptItemsDesktopDiv>
+  ));
+
   const [editInvoice, setEditInvoice] = useState(false);
 
   //console.log(editInvoice);
@@ -284,9 +298,22 @@ export default function ViewInvoice({ allInvoices, setAllInvoices, width }) {
                 </StyledSentToDiv>
               </div>
               <StyledReceiptDiv>
-                <StyledRecepitItemsContainerDiv>
-                  {receiptItems}
-                </StyledRecepitItemsContainerDiv>
+                {width < 450 && (
+                  <StyledRecepitItemsContainerDiv>
+                    {receiptItems}
+                  </StyledRecepitItemsContainerDiv>
+                )}
+                {width > 450 && (
+                  <StyledRecepitItemsContainerDiv>
+                    <StyledDekstopItemsTitleDiv>
+                      <div>Item Name</div>
+                      <div>QTY.</div>
+                      <div>Price</div>
+                      <div>Total</div>
+                    </StyledDekstopItemsTitleDiv>
+                    {receiptItemsDesktop}
+                  </StyledRecepitItemsContainerDiv>
+                )}
                 <StyledGrandTotalContainer>
                   <p>Grand Total</p>
                   <p>{`€ ${invoice.total}`}</p>
@@ -866,6 +893,10 @@ const StyledRecepitItemsContainerDiv = styled.div`
   background: #f9fafe;
   border-radius: 10px 10px 0px 0px;
   padding: 12px 24px;
+
+  @media only screen and (min-width: 900px) {
+    padding: 32px 32px 28px 32px;
+  }
 `;
 
 const StyledReceiptItemsDiv = styled.div`
@@ -874,6 +905,40 @@ const StyledReceiptItemsDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
+
+  .black {
+    color: var(--text-light-black);
+  }
+`;
+
+const StyledDekstopItemsTitleDiv = styled.div`
+  display: grid;
+  grid-template: 1fr / 1fr 3fr 1fr 1fr;
+  grid-gap: 50px;
+  justify-items: flex-end;
+  margin-bottom: 14px;
+
+  div:nth-child(1) {
+    justify-self: flex-start;
+  }
+`;
+
+const StyledReceiptItemsDesktopDiv = styled.div`
+  font-weight: bold;
+  display: grid;
+  grid-template: 1fr / 1fr 3fr 1fr 1fr;
+  grid-gap: 50px;
+  justify-items: flex-end;
+  margin-top: 6px;
+  white-space: nowrap;
+
+  p:nth-child(1) {
+    justify-self: flex-start;
+  }
+
+  p:nth-child(2) {
+    margin-right: 10px;
+  }
 
   .black {
     color: var(--text-light-black);
@@ -890,6 +955,10 @@ const StyledGrandTotalContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (min-width: 900px) {
+    padding: 0px 32px;
+  }
 
   p:nth-child(2) {
     font-weight: bold;
