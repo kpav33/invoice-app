@@ -388,7 +388,7 @@ export default function ViewInvoice({ allInvoices, setAllInvoices, width }) {
             <StyledGoBackLink onClick={() => setEditInvoice(false)}>
               <ArrowLeft /> Go back
             </StyledGoBackLink>
-            <h2>New Invoice</h2>
+            <h2>Edit Invoice</h2>
             <StyledPara>Bill from</StyledPara>
             <StyledInputDiv>
               <label htmlFor="streetAddress">Street Address</label>
@@ -613,46 +613,89 @@ export default function ViewInvoice({ allInvoices, setAllInvoices, width }) {
             >
               + Add New Item
             </StyledAddItemButton>
+            {width > 450 && (
+              <StyledButtonsCreateDiv>
+                <StyledCreateInvoiceButton
+                  backgroundColor="#F9FAFE"
+                  color="#7E88C3"
+                  onClick={() => {
+                    setEditInvoice(false);
+                    setFormObject({
+                      streetAddress: invoice.senderAddress.street,
+                      city: invoice.senderAddress.city,
+                      postCode: invoice.senderAddress.postCode,
+                      country: invoice.senderAddress.country,
+                      streetAddressClient: invoice.clientAddress.street,
+                      cityClient: invoice.clientAddress.city,
+                      postCodeClient: invoice.clientAddress.postCode,
+                      countryClient: invoice.clientAddress.country,
+                      clientEmail: invoice.clientEmail,
+                      clientName: invoice.clientName,
+                      invoiceDate: invoice.createdAt,
+                      paymentTerms: invoice.paymentTerms,
+                      projectDescription: invoice.description,
+                      id: invoice.id,
+                      paymentDue: invoice.paymentDue,
+                      total: invoice.total,
+                      status: invoice.total,
+                      items: invoice.items,
+                    });
+                  }}
+                >
+                  Cancel
+                </StyledCreateInvoiceButton>
+                <Link to="/" onClick={handleSaveClick}>
+                  <StyledCreateInvoiceButton
+                    backgroundColor="#7C5DFA"
+                    color="#ffffff"
+                  >
+                    Save Changes
+                  </StyledCreateInvoiceButton>
+                </Link>
+              </StyledButtonsCreateDiv>
+            )}
           </StyledCreateNewInvoiceDiv>
-          <StyledButtonsCreateDiv>
-            <StyledCreateInvoiceButton
-              backgroundColor="#F9FAFE"
-              color="#7E88C3"
-              onClick={() => {
-                setEditInvoice(false);
-                setFormObject({
-                  streetAddress: invoice.senderAddress.street,
-                  city: invoice.senderAddress.city,
-                  postCode: invoice.senderAddress.postCode,
-                  country: invoice.senderAddress.country,
-                  streetAddressClient: invoice.clientAddress.street,
-                  cityClient: invoice.clientAddress.city,
-                  postCodeClient: invoice.clientAddress.postCode,
-                  countryClient: invoice.clientAddress.country,
-                  clientEmail: invoice.clientEmail,
-                  clientName: invoice.clientName,
-                  invoiceDate: invoice.createdAt,
-                  paymentTerms: invoice.paymentTerms,
-                  projectDescription: invoice.description,
-                  id: invoice.id,
-                  paymentDue: invoice.paymentDue,
-                  total: invoice.total,
-                  status: invoice.total,
-                  items: invoice.items,
-                });
-              }}
-            >
-              Cancel
-            </StyledCreateInvoiceButton>
-            <Link to="/" onClick={handleSaveClick}>
+          {width < 450 && (
+            <StyledButtonsCreateDiv>
               <StyledCreateInvoiceButton
-                backgroundColor="#7C5DFA"
-                color="#ffffff"
+                backgroundColor="#F9FAFE"
+                color="#7E88C3"
+                onClick={() => {
+                  setEditInvoice(false);
+                  setFormObject({
+                    streetAddress: invoice.senderAddress.street,
+                    city: invoice.senderAddress.city,
+                    postCode: invoice.senderAddress.postCode,
+                    country: invoice.senderAddress.country,
+                    streetAddressClient: invoice.clientAddress.street,
+                    cityClient: invoice.clientAddress.city,
+                    postCodeClient: invoice.clientAddress.postCode,
+                    countryClient: invoice.clientAddress.country,
+                    clientEmail: invoice.clientEmail,
+                    clientName: invoice.clientName,
+                    invoiceDate: invoice.createdAt,
+                    paymentTerms: invoice.paymentTerms,
+                    projectDescription: invoice.description,
+                    id: invoice.id,
+                    paymentDue: invoice.paymentDue,
+                    total: invoice.total,
+                    status: invoice.total,
+                    items: invoice.items,
+                  });
+                }}
               >
-                Save Changes
+                Cancel
               </StyledCreateInvoiceButton>
-            </Link>
-          </StyledButtonsCreateDiv>
+              <Link to="/" onClick={handleSaveClick}>
+                <StyledCreateInvoiceButton
+                  backgroundColor="#7C5DFA"
+                  color="#ffffff"
+                >
+                  Save Changes
+                </StyledCreateInvoiceButton>
+              </Link>
+            </StyledButtonsCreateDiv>
+          )}
         </>
       )}
     </>
@@ -1042,12 +1085,17 @@ const StyledDeleteInvoiceDiv = styled.div`
   }
 `;
 
-/* CANCER DUPLICATION LMAO */
+/* || EDIT INVOICE STYLING */
 
 const StyledCreateNewInvoiceDiv = styled.div`
   //background: #fff;
   padding: 32px 0px 0px 0px;
   margin: 0px 24px;
+
+  @media only screen and (min-width: 900px) {
+    width: 100%;
+    margin: 1% 20% 0% 15%;
+  }
 
   h2 {
     font-size: 24px;
