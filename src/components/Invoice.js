@@ -14,6 +14,14 @@ export default function Invoice({
   setAllInvoices,
   width,
 }) {
+  console.log(
+    new Date(new Date(due).getTime()).toLocaleString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    })
+  );
+
   let totalFormatted = new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -51,7 +59,13 @@ export default function Invoice({
           <span>#</span>
           {id}
         </StyledIdPara>
-        <StyledDatePara>{`Due ${due}`}</StyledDatePara>
+        <StyledDatePara>{`Due ${new Date(
+          new Date(due).getTime()
+        ).toLocaleString("en-GB", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}`}</StyledDatePara>
         <StyledNamePara>{name}</StyledNamePara>
         <StyledValuePara>{totalFormatted}</StyledValuePara>
         <StyledStatusDiv
