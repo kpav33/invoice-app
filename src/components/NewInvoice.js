@@ -46,6 +46,14 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     setFormObject({ ...formObject, paymentTerms: value.value });
   }
 
+  let startDateString = new Date(startDate.getTime()).toLocaleString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  console.log(startDateString + " OK");
+
   let paymentDue = paymentTerm
     ? 60 * 60 * 24 * 1000 * parseInt(paymentTerm)
     : null;
@@ -99,7 +107,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     },
     clientEmail: formObject.clientEmail,
     clientName: formObject.clientName,
-    createdAt: formObject.invoiceDate,
+    createdAt: startDateString,
     description: formObject.projectDescription,
     id: uniqueID(),
     items: itemsArray,
