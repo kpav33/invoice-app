@@ -124,7 +124,7 @@ const PlusIconDiv = styled.div`
   left: 55%;
 
   @media only screen and (min-width: 900px) {
-    left: 42%;
+    left: 60%;
   }
 `;
 
@@ -142,6 +142,7 @@ const colourStyles = {
     //marginTop: "2rem",
     "@media only screen and (min-width: 768px)": {
       width: "150px",
+      marginRight: "40px",
     },
   }),
   singleValue: (provided) => ({
@@ -160,6 +161,7 @@ const colourStyles = {
     // kill the gap
     marginTop: "5px",
     background: "hsl(0, 0%, 100%)",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
     width: "90px",
     "@media only screen and (min-width: 768px)": {
       width: "150px",
