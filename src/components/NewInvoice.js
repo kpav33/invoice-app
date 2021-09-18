@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Select from "react-select";
+import DatePicker from "react-datepicker";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
   // https://www.pluralsight.com/guides/handling-multiple-inputs-with-single-onchange-handler-react
@@ -16,6 +19,17 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     return char + num;
   }
 
+  // Date picker
+  const [startDate, setStartDate] = useState(new Date());
+
+  function handleChangeDatePicker(date) {
+    setStartDate(date);
+    setFormObject({ ...formObject, invoiceDate: date });
+  }
+
+  console.log(startDate);
+
+  // Payment Terms select
   const optionsTerms = [
     { value: "1", label: "Net 1 Day" },
     { value: "7", label: "Net 7 Days" },
@@ -31,6 +45,22 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     setPaymentTerms(value.value);
     setFormObject({ ...formObject, paymentTerms: value.value });
   }
+
+  let paymentDue = paymentTerm
+    ? 60 * 60 * 24 * 1000 * parseInt(paymentTerm)
+    : null;
+
+  let paymentDueString = new Date(
+    startDate.getTime() + paymentDue
+  ).toLocaleString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  console.log(paymentDueString);
+
+  //console.log(paymentDue);
 
   const [itemObject, setItemObject] = useState({});
 
@@ -52,13 +82,13 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     paymentTerms: "",
     projectDescription: "",
     id: uniqueID(),
-    paymentDue: "12-3-2021",
+    paymentDue: "",
     total: "1000",
     status: "pending",
     items: itemsArray,
   });
 
-  //console.log(formObject);
+  console.log(formObject);
 
   const newInvoiceObj = {
     clientAddress: {
@@ -73,7 +103,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     description: formObject.projectDescription,
     id: uniqueID(),
     items: itemsArray,
-    paymentDue: formObject.paymentTerms,
+    paymentDue: paymentDueString,
     senderAddress: {
       city: formObject.city,
       country: formObject.country,
@@ -254,13 +284,17 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           />
         </StyledInputDiv>
         <StyledInputDiv>
-          <label htmlFor="invoiceDate">Invoice Date</label>
+          {/* <label htmlFor="invoiceDate">Invoice Date</label>
           <input
             type="text"
             id="invoiceDate"
             name="invoiceDate"
             value={formObject.invoiceDate}
             onChange={handleChange}
+          /> */}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => handleChangeDatePicker(date)}
           />
         </StyledInputDiv>
         <StyledInputDiv>
