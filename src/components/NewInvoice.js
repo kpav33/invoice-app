@@ -4,6 +4,7 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
+import { ReactComponent as Calendar } from "../assets/icon-calendar.svg";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -27,7 +28,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     setFormObject({ ...formObject, invoiceDate: date });
   }
 
-  console.log(startDate);
+  //console.log(startDate);
 
   // Payment Terms select
   const optionsTerms = [
@@ -52,7 +53,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     day: "numeric",
   });
 
-  console.log(startDateString + " OK");
+  //console.log(startDateString + " OK");
 
   let paymentDue = paymentTerm
     ? 60 * 60 * 24 * 1000 * parseInt(paymentTerm)
@@ -66,7 +67,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     day: "numeric",
   });
 
-  console.log(paymentDueString);
+  //console.log(paymentDueString);
 
   //console.log(paymentDue);
 
@@ -96,7 +97,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     items: itemsArray,
   });
 
-  console.log(formObject);
+  //console.log(formObject);
 
   const newInvoiceObj = {
     clientAddress: {
@@ -291,7 +292,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
             onChange={handleChange}
           />
         </StyledInputDiv>
-        <StyledInputDiv>
+        <StyledDatepickerDiv>
           {/* <label htmlFor="invoiceDate">Invoice Date</label>
           <input
             type="text"
@@ -304,7 +305,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
             selected={startDate}
             onChange={(date) => handleChangeDatePicker(date)}
           />
-        </StyledInputDiv>
+          <Calendar />
+        </StyledDatepickerDiv>
         <StyledInputDiv>
           {/* <label htmlFor="paymentTerms">Payment Terms</label>
           <input
@@ -505,6 +507,44 @@ const StyledInputDiv = styled.div`
     color: #0c0e16;
     font-weight: bold;
     width: 100%;
+  }
+`;
+
+const StyledDatepickerDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  position: relative;
+
+  /* label {
+    color: #7e88c3;
+    margin-bottom: 10px;
+  } */
+
+  input {
+    background: #ffffff;
+    border: 1px solid #dfe3fa;
+    border-radius: 4px;
+    padding: 17px 20px;
+    color: #0c0e16;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  svg {
+    position: absolute;
+    top: 35%;
+    left: 90%;
+
+    @media only screen and (min-width: 900px) {
+      left: 96%;
+    }
+
+    path {
+      opacity: 1;
+    }
   }
 `;
 
