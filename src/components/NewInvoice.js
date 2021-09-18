@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Select from "react-select";
 import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
 
@@ -15,7 +16,21 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     return char + num;
   }
 
-  uniqueID();
+  const optionsTerms = [
+    { value: "1", label: "Net 1 Day" },
+    { value: "7", label: "Net 7 Days" },
+    { value: "14", label: "Net 14 Days" },
+    { value: "30", label: "Net 30 Days" },
+  ];
+
+  const [paymentTerm, setPaymentTerms] = useState("");
+
+  //console.log(paymentTerm);
+
+  function handleChangePaymentTerms(value) {
+    setPaymentTerms(value.value);
+    setFormObject({ ...formObject, paymentTerms: value.value });
+  }
 
   const [itemObject, setItemObject] = useState({});
 
@@ -43,6 +58,8 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     items: itemsArray,
   });
 
+  //console.log(formObject);
+
   const newInvoiceObj = {
     clientAddress: {
       city: formObject.cityClient,
@@ -56,7 +73,7 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
     description: formObject.projectDescription,
     id: uniqueID(),
     items: itemsArray,
-    paymentDue: "12-3-2021",
+    paymentDue: formObject.paymentTerms,
     senderAddress: {
       city: formObject.city,
       country: formObject.country,
@@ -247,13 +264,23 @@ export default function NewInvoice({ setCreateNewInvoice, setAllInvoices }) {
           />
         </StyledInputDiv>
         <StyledInputDiv>
-          <label htmlFor="paymentTerms">Payment Terms</label>
+          {/* <label htmlFor="paymentTerms">Payment Terms</label>
           <input
             type="text"
             id="paymentTerms"
             name="paymentTerms"
             value={formObject.paymentTerms}
             onChange={handleChange}
+          /> */}
+          <Select
+            //classNamePrefix="list"
+            options={optionsTerms}
+            styles={colourStyles}
+            onChange={handleChangePaymentTerms}
+            placeholder="Payment Terms"
+            components={{
+              IndicatorSeparator: () => null,
+            }}
           />
         </StyledInputDiv>
         <StyledInputDiv>
@@ -569,3 +596,88 @@ const StyledDeleteButton = styled.button`
     cursor: pointer;
   }
 `;
+
+const colourStyles = {
+  container: (provided) => ({
+    ...provided,
+    width: "100%",
+  }),
+  control: (styles) => ({
+    ...styles,
+    width: "100%",
+    padding: "10px 8px",
+    border: "1px solid #dfe3fa",
+    borderRadius: "4px",
+    fontFamily: "Spartan, sans-serif",
+    background: "white",
+    fontWeight: "bold",
+    //boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+    //marginTop: "2rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "@media only screen and (min-width: 768px)": {
+      // width: "150px",
+      // marginRight: "40px",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#0C0E16",
+  }),
+  dropdownIndicator: (base) => ({
+    ...base,
+    color: "#7C5DFA",
+    "&:hover": {
+      color: "#7C5DFA",
+    },
+  }),
+  menu: (base) => ({
+    ...base,
+    // kill the gap
+    marginTop: "15px",
+    background: "hsl(0, 0%, 100%)",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+    width: "100%",
+    borderRadius: "8px",
+    "@media only screen and (min-width: 768px)": {
+      // width: "150px",
+    },
+  }),
+  menuList: (base) => ({
+    ...base,
+    // kill the white space on first and last option
+    padding: 0,
+    borderRadius: "5px",
+  }),
+  option: (styles) => {
+    return {
+      ...styles,
+      padding: "15px 20px 10px 20px",
+      borderBottom: "1px solid #DFE3FA",
+      fontFamily: "Spartan, sans-serif",
+      color: "#0C0E16",
+      background: "hsl(0, 0%, 100%)",
+      fontWeight: "bold",
+      cursor: "pointer",
+      "&:hover": {
+        color: "#7C5DFA",
+      },
+    };
+  },
+  placeholder: (defaultStyles) => {
+    return {
+      ...defaultStyles,
+      color: "#0C0E16",
+    };
+  },
+  valueContainer: (base) => ({
+    ...base,
+    //background: "red",
+    //color: "white",
+    //width: "auto",
+    paddingRight: "0px",
+    //marginLeft: "15px",
+    //zIndex: "10",
+  }),
+};

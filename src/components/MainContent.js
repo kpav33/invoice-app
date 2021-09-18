@@ -7,20 +7,19 @@ import NewInvoice from "./NewInvoice";
 
 export default function MainContent({ allInvoices, setAllInvoices, width }) {
   const [createNewInvoice, setCreateNewInvoice] = useState(false);
+  // Track selected option from select element
   const [filter, setFilter] = useState("all");
 
-  function handleChange(event) {
-    const { value } = event.target;
-    setFilter(value);
-  }
+  // Replaced with react-select
+  // function handleChange(event) {
+  //   const { value } = event.target;
+  //   setFilter(value);
+  // }
 
-  //console.log(filter);
-
+  // Handle select option change
   function handleChangeFilter(value) {
     setFilter(value.value);
   }
-
-  //console.log(filter);
 
   return (
     <StyledMain>
@@ -32,7 +31,6 @@ export default function MainContent({ allInvoices, setAllInvoices, width }) {
             setCreateNewInvoice={setCreateNewInvoice}
             filter={filter}
             setFilter={setFilter}
-            handleChange={handleChange}
             handleChangeFilter={handleChangeFilter}
             width={width}
           />

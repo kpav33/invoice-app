@@ -9,7 +9,6 @@ export default function ActionBar({
   setCreateNewInvoice,
   filter,
   setFilter,
-  handleChange,
   width,
   handleChangeFilter,
 }) {
@@ -32,7 +31,8 @@ export default function ActionBar({
         </p>
       </div>
       <ActionBarSelectionDiv>
-        {/* <select value={filter} onChange={handleChange} name="filter">
+        {/* Replaced with react-select
+        <select value={filter} onChange={handleChange} name="filter">
           <option value="all">Filter</option>
           <option value="paid">Paid</option>
           <option value="pending">Pending</option>
@@ -140,6 +140,9 @@ const colourStyles = {
     fontWeight: "bold",
     //boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     //marginTop: "2rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
     "@media only screen and (min-width: 768px)": {
       width: "150px",
       marginRight: "40px",
