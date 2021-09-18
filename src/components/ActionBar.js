@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Select from "react-select";
 
 import { ReactComponent as Plus } from "../assets/icon-plus.svg";
 
@@ -10,7 +11,16 @@ export default function ActionBar({
   setFilter,
   handleChange,
   width,
+  handleChangeFilter,
 }) {
+  // react-select possible options
+  const options = [
+    { value: "paid", label: "Paid" },
+    { value: "pending", label: "Pending" },
+    { value: "draft", label: "Draft" },
+    { value: "all", label: "All" },
+  ];
+
   return (
     <StyledActionBarDiv>
       <div>
@@ -22,13 +32,23 @@ export default function ActionBar({
         </p>
       </div>
       <ActionBarSelectionDiv>
-        <select value={filter} onChange={handleChange} name="filter">
+        {/* <select value={filter} onChange={handleChange} name="filter">
           <option value="all">Filter</option>
           <option value="paid">Paid</option>
           <option value="pending">Pending</option>
           <option value="draft">Draft</option>
           <option value="all">All</option>
-        </select>
+        </select> */}
+        <Select
+          //classNamePrefix="list"
+          options={options}
+          styles={colourStyles}
+          onChange={handleChangeFilter}
+          placeholder={width > 900 ? "Filter by status" : "Filter"}
+          components={{
+            IndicatorSeparator: () => null,
+          }}
+        />
         <PlusIconDiv>
           <Plus />
         </PlusIconDiv>
@@ -70,7 +90,7 @@ const ActionBarSelectionDiv = styled.div`
   position: relative;
 
   button {
-    margin-left: 18px;
+    margin-left: 6px;
     border: none;
     background: var(--button-purple-new);
     color: white;
@@ -107,3 +127,76 @@ const PlusIconDiv = styled.div`
     left: 42%;
   }
 `;
+
+const colourStyles = {
+  control: (styles) => ({
+    ...styles,
+    width: "90px",
+    //padding: "0.4rem",
+    //borderRadius: "5px",
+    border: "none",
+    fontFamily: "Spartan, sans-serif",
+    background: "none",
+    fontWeight: "bold",
+    //boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+    //marginTop: "2rem",
+    "@media only screen and (min-width: 768px)": {
+      width: "150px",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "#0C0E16",
+  }),
+  dropdownIndicator: (base) => ({
+    ...base,
+    color: "#7C5DFA",
+    "&:hover": {
+      color: "#7C5DFA",
+    },
+  }),
+  menu: (base) => ({
+    ...base,
+    // kill the gap
+    marginTop: "5px",
+    background: "hsl(0, 0%, 100%)",
+    width: "90px",
+    "@media only screen and (min-width: 768px)": {
+      width: "150px",
+    },
+  }),
+  menuList: (base) => ({
+    ...base,
+    // kill the white space on first and last option
+    padding: 0,
+    borderRadius: "5px",
+  }),
+  option: (styles) => {
+    return {
+      ...styles,
+      fontFamily: "Spartan, sans-serif",
+      color: "#0C0E16",
+      background: "hsl(0, 0%, 100%)",
+      fontWeight: "bold",
+      cursor: "pointer",
+      "&:hover": {
+        background: "hsl(0, 0%, 94%)",
+      },
+    };
+  },
+  placeholder: (defaultStyles) => {
+    return {
+      ...defaultStyles,
+      color: "#0C0E16",
+    };
+  },
+  valueContainer: (base) => ({
+    ...base,
+    //background: "red",
+    //color: "white",
+    //width: "auto",
+    paddingRight: "0px",
+    //marginLeft: "15px",
+    //zIndex: "10",
+  }),
+};

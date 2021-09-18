@@ -16,6 +16,12 @@ export default function MainContent({ allInvoices, setAllInvoices, width }) {
 
   //console.log(filter);
 
+  function handleChangeFilter(value) {
+    setFilter(value.value);
+  }
+
+  //console.log(filter);
+
   return (
     <StyledMain>
       {!createNewInvoice && (
@@ -27,6 +33,7 @@ export default function MainContent({ allInvoices, setAllInvoices, width }) {
             filter={filter}
             setFilter={setFilter}
             handleChange={handleChange}
+            handleChangeFilter={handleChangeFilter}
             width={width}
           />
           <Invoices
